@@ -15,8 +15,8 @@ class Player{
       
       Public:
       Player(int id); // argument constructor
-      int getId();
-      int getPieces();
+      int getPlayerId();
+      int getPiecesLeft();
       int getPiecesDisplayed();
       int setPieces();
     
