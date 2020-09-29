@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QSignalMapper>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -13,9 +15,18 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    QPushButton* button;
     ~MainWindow();
+
+private slots:
+   void handleButton2(int button);
 
 private:
     Ui::MainWindow *ui;
+    bool toggle = true;
+    QPushButton* PB[24];
+    QSignalMapper *signalMapper;
+    int red = 9;
+    int black = 9;
 };
 #endif // MAINWINDOW_H

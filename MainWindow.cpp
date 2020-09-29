@@ -1,12 +1,43 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent):
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    PB[0]=ui->a7;PB[1]=ui->d7;PB[2]=ui->g7;PB[3]=ui->b6;
+    PB[4]=ui->d6;PB[5]=ui->f6;PB[6]=ui->c5;PB[7]=ui->d5;
+    PB[8]=ui->e5;PB[9]=ui->a4;PB[10]=ui->b4;PB[11]=ui->c4;
+    PB[12]=ui->e4;PB[13]=ui->f4;PB[14]=ui->g4;PB[15]=ui->c3;
+    PB[16]=ui->d3;PB[17]=ui->e3;PB[18]=ui->b2;PB[19]=ui->d2;
+    PB[20]=ui->f2;PB[21]=ui->a1;PB[22]=ui->d1;PB[23]=ui->g1;
+
+    signalMapper = new QSignalMapper(this);
+    connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
+
+    for (int i =0; i<24; i++) {
+        connect(PB[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
+        signalMapper->setMapping(PB[i], i);
+    }
+
 }
+
+void MainWindow::handleButton2(int button)
+{
+    if (toggle == true && red > 0) {
+     PB[button]->setText("RED");
+     PB[button]->setEnabled(false);
+     red--;
+     toggle =false;
+    } else if (toggle == false && black > 0) {
+        PB[button]->setText("BLACK");
+        PB[button]->setEnabled(false);
+        toggle =true;
+        black--;
+    }
+ }
+
 
 MainWindow::~MainWindow()
 {
