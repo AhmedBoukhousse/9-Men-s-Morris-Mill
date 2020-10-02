@@ -13,6 +13,12 @@ MainWindow::MainWindow(QWidget *parent):
     PB[16]=ui->d3;PB[17]=ui->e3;PB[18]=ui->b2;PB[19]=ui->d2;
     PB[20]=ui->f2;PB[21]=ui->a1;PB[22]=ui->d1;PB[23]=ui->g1;
 
+    redIcon.addPixmap(QPixmap(":/images/red.png"), QIcon::Normal);
+    redIcon.addPixmap(QPixmap(":/images/red.png"), QIcon::Disabled);
+
+    blackIcon.addPixmap(QPixmap(":/images/black.png"), QIcon::Normal);
+    blackIcon.addPixmap(QPixmap(":/images/black.png"), QIcon::Disabled);
+
     signalMapper = new QSignalMapper(this);
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
 
@@ -20,18 +26,22 @@ MainWindow::MainWindow(QWidget *parent):
         connect(PB[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(PB[i], i);
     }
-
+    setWindowTitle(tr("Nine Men's Morris"));
 }
 
 void MainWindow::handleButton2(int button)
 {
     if (toggle == true && red > 0) {
-     PB[button]->setText("RED");
+     //PB[button]->setText("RED");
+     PB[button]->setIcon(redIcon);
+     PB[button]->setIconSize(QSize(65, 65));
      PB[button]->setEnabled(false);
      red--;
      toggle =false;
     } else if (toggle == false && black > 0) {
-        PB[button]->setText("BLACK");
+        //PB[button]->setText("BLACK");
+        PB[button]->setIcon(blackIcon);
+        PB[button]->setIconSize(QSize(65, 65));
         PB[button]->setEnabled(false);
         toggle =true;
         black--;

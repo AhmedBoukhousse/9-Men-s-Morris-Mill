@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSignalMapper>
+#include <QPixmap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,5 +29,7 @@ private:
     QSignalMapper *signalMapper;
     int red = 9;
     int black = 9;
+    QIcon redIcon;
+    QIcon blackIcon;
 };
 #endif // MAINWINDOW_H
