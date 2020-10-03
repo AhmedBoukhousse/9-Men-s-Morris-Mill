@@ -40,7 +40,7 @@ class Player{
       bool hasNoPieces();
       
       // reset the game if the restart button is pressed
-      void reset();
+      void clearBoard();
     
 };
 #endif //PLAYER
