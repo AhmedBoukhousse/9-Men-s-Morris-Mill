@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent):
     signalMapper = new QSignalMapper(this);
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
 
-    for (int i =0; i<24; i++) {
+    for (int i =0; i<24; i++)
+    {
         connect(PB[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(PB[i], i);
     }
@@ -31,20 +32,23 @@ MainWindow::MainWindow(QWidget *parent):
 
 void MainWindow::handleButton2(int button)
 {
-    if (toggle == true && red > 0) {
-     //PB[button]->setText("RED");
-     PB[button]->setIcon(redIcon);
-     PB[button]->setIconSize(QSize(65, 65));
-     PB[button]->setEnabled(false);
-     red--;
-     toggle =false;
-    } else if (toggle == false && black > 0) {
-        //PB[button]->setText("BLACK");
+    if (toggle == true && red > 0)
+    {
+        PB[button]->setIcon(redIcon);
+        PB[button]->setIconSize(QSize(65, 65));
+        PB[button]->setEnabled(false);
+        toggle =false;
+        red--;
+        //CheckForMills
+    }
+    else if (toggle == false && black > 0)
+    {
         PB[button]->setIcon(blackIcon);
         PB[button]->setIconSize(QSize(65, 65));
         PB[button]->setEnabled(false);
         toggle =true;
         black--;
+        //CheckForMills
     }
  }
 

@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-image: url(:/images/wood.jpeg);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="a7">
     <property name="geometry">
@@ -22,6 +25,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -36,6 +43,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -48,6 +59,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -62,6 +77,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -74,6 +93,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -88,6 +111,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -100,6 +127,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -114,6 +145,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -126,6 +161,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -140,6 +179,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -152,6 +195,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -166,6 +213,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -178,6 +229,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -192,6 +247,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -204,6 +263,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -218,6 +281,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -230,6 +297,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -244,6 +315,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -256,6 +331,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -270,6 +349,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -282,6 +365,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -296,6 +383,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -308,6 +399,10 @@
       <width>61</width>
       <height>61</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -322,6 +417,10 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;
+background-image: url(:/images/hole.png);</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -334,6 +433,9 @@
       <width>241</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
@@ -521,25 +623,6 @@
      <rect>
       <x>140</x>
       <y>180</y>
-      <width>20</width>
-      <height>141</height>
-     </rect>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>6</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="Line" name="line_12">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>380</y>
       <width>20</width>
       <height>141</height>
      </rect>
@@ -922,6 +1005,25 @@
       <y>80</y>
       <width>20</width>
       <height>41</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>6</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_12">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>380</y>
+      <width>20</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="frameShadow">

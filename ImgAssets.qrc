@@ -2,5 +2,7 @@
     <qresource prefix="/images">
         <file>black.png</file>
         <file>red.png</file>
+        <file>wood.jpeg</file>
+        <file>hole.png</file>
     </qresource>
 </RCC>
