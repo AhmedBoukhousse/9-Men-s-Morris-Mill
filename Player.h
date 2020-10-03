@@ -25,8 +25,9 @@ class Player{
       
       
       //Update the state of the pieces displayed on board
-      void displayPiecesOnBoard(int position);
+      void makePiecesOnBoardMove(int position);
       void removePieces(int position);
+      void displayePiecesToBoard(int position);
       
       //This function should be called if the oppoent forms a Mill. 
       //it checks if the player has any pieces that are volunerable and can be removed. 
