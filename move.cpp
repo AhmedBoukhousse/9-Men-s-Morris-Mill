@@ -6,23 +6,32 @@ using namespace std;
 int p1 = 1;
 int p2 = 2;
 
-bool legalmoves(int newlocation) // check location selected by the user
-{
+// check location selected by the user
+bool legalmoves(int newlocation) {
+
+		// if it's taken
+		if (newlocation == p1) {  
+			return false;
+		}
+
+		else if (newlocation == p2) {
+			return false;
+		}
+
+		else
+			return true;
 	
-	if (newlocation == p1) {  // if it's taken
-		return false;
-	}
-	else if (newlocation == p2) {
-		return false;
-	}
-	else
-		return true;
 }
 
-void movepiece(int prevlocation, int newlocation) // move piece to legal position
+// move piece to legal position
+void movepiece(int prevlocation, int newlocation) 
 {
 	if (legalmoves(newlocation) == true) {
-		prevlocation = newlocation;			// piece moved to new location
+		// piece moved to new location
+		int temp;
+		prevlocation = temp;  // store location before moving
+		prevlocation = newlocation;	   
+		temp = 0;   // the old location becomes empty 
 	}
 	else
 		cout << "invalid move" << endl;
