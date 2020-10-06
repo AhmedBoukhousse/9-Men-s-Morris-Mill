@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QSignalMapper>
 #include <QPixmap>
+#include "board.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,11 +19,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     QPushButton* button;
     ~MainWindow();
+    Board gameBoard;
 
 private slots:
    void handleButton2(int button);
 
 private:
+    void setBlack(int button);
+    void setRed(int button);
+    void setEmpty(int button);
     Ui::MainWindow *ui;
     bool toggle = true;
     QPushButton* PB[24];
@@ -31,5 +36,6 @@ private:
     int black = 9;
     QIcon redIcon;
     QIcon blackIcon;
+    QIcon blankIcon;
 };
 #endif // MAINWINDOW_H

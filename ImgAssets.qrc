@@ -4,5 +4,6 @@
         <file>red.png</file>
         <file>wood.jpeg</file>
         <file>hole.png</file>
+	<file>empty.png</file>
     </qresource>
 </RCC>

@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "board.h"
 
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
@@ -19,6 +20,9 @@ MainWindow::MainWindow(QWidget *parent):
     blackIcon.addPixmap(QPixmap(":/images/black.png"), QIcon::Normal);
     blackIcon.addPixmap(QPixmap(":/images/black.png"), QIcon::Disabled);
 
+    blankIcon.addPixmap(QPixmap(":/images/empty.png"), QIcon::Normal);
+    blankIcon.addPixmap(QPixmap(":/images/empty.png"), QIcon::Disabled);
+
     signalMapper = new QSignalMapper(this);
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
 
@@ -30,22 +34,42 @@ MainWindow::MainWindow(QWidget *parent):
     setWindowTitle(tr("Nine Men's Morris"));
 }
 
+void MainWindow::setBlack(int button)
+{
+    PB[button]->setIcon(blackIcon);
+    PB[button]->setIconSize(QSize(65, 65));
+    PB[button]->setEnabled(false);
+    gameBoard.boardArea[button] = 2;
+}
+
+void MainWindow::setRed(int button)
+{
+    PB[button]->setIcon(redIcon);
+    PB[button]->setIconSize(QSize(65, 65));
+    PB[button]->setEnabled(false);
+    gameBoard.boardArea[button] = 1;
+}
+
+void MainWindow::setEmpty(int button)
+{
+    PB[button]->setIcon(blankIcon);
+    PB[button]->setIconSize(QSize(65, 65));
+    PB[button]->setEnabled(true);
+    gameBoard.boardArea[button] = 0;
+}
+
 void MainWindow::handleButton2(int button)
 {
     if (toggle == true && red > 0)
     {
-        PB[button]->setIcon(redIcon);
-        PB[button]->setIconSize(QSize(65, 65));
-        PB[button]->setEnabled(false);
-        toggle =false;
+        setRed(button);
+        toggle=false;
         red--;
         //CheckForMills
     }
     else if (toggle == false && black > 0)
     {
-        PB[button]->setIcon(blackIcon);
-        PB[button]->setIconSize(QSize(65, 65));
-        PB[button]->setEnabled(false);
+        setBlack(button);
         toggle =true;
         black--;
         //CheckForMills
