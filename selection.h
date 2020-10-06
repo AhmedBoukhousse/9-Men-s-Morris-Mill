@@ -14,9 +14,13 @@ class Selection : public QWidget
 public:
     explicit Selection(QWidget *parent = nullptr);
     ~Selection();
-
+public slots:
+ void openGameBoard();
+private slots:
+void on_onePlayer_clicked();
 private:
     Ui::Selection *ui;
+    MainWindow *gameBoard;
 };
 
 #endif // SELECTION_H
