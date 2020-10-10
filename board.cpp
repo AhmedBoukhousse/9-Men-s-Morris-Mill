@@ -2,9 +2,8 @@
 
 Board::Board()
 {
-    for(int i =0; i < 24; i++) {
+    for(int i =0; i < 24; i++)
         boardArea[i] = 0;
-    }
 }
 
 int Board::checkMill(int winner)
@@ -69,4 +68,45 @@ int Board::collCheck(int i, int j, int k)
         return 2;
     else
         return 0;
+}
+
+void Board::addPiece(int pid, int slot)
+{
+    if(boardArea[slot] == 0)
+        boardArea[slot] =  pid;
+       //pid.pieces++;
+    else
+        return;
+}
+
+void Board::removePiece(int slot)
+{
+    int pid = boardArea[slot];
+    boardArea[slot] == 0;
+    //pid.pieces = pid.pieces -  1;
+}
+
+bool Board::checkAdjacent(int origin, int dest)
+{
+      for(int i = 0; i < 64; i+=2)
+      {
+        if((adjacent[i] == origin && adjacent[i+1] == dest)  || (adjacent[i] == dest && adjacent[i+1] == origin))
+          return true;
+      }
+      return false;
+}
+
+void Board::swapPiece(int pid, int origin, int dest)
+{
+    if(boardArea[origin] == pid && boardArea[dest  == 0])
+    {
+        bool adjacent = true;
+      if (flightMode == false)
+            adjacent = checkAdjacent(origin, dest);
+        if (adjacent == true)
+        {
+            boardArea[origin] = 0;
+            boardArea[dest] = pid;
+        }
+    }
 }

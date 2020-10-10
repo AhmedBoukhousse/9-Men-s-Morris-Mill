@@ -39,7 +39,7 @@ void MainWindow::setBlack(int button)
     PB[button]->setIcon(blackIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(false);
-    gameBoard.boardArea[button] = 2;
+    gameBoard.addPiece(2, button);
 }
 
 void MainWindow::setRed(int button)
@@ -47,7 +47,7 @@ void MainWindow::setRed(int button)
     PB[button]->setIcon(redIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(false);
-    gameBoard.boardArea[button] = 1;
+    gameBoard.addPiece(1, button);
 }
 
 void MainWindow::setEmpty(int button)
@@ -55,7 +55,7 @@ void MainWindow::setEmpty(int button)
     PB[button]->setIcon(blankIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(true);
-    gameBoard.boardArea[button] = 0;
+    gameBoard.removePiece(button);
 }
 
 void MainWindow::handleButton2(int button)
