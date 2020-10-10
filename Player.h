@@ -6,28 +6,28 @@
 using namespace std;
 
 class Player{
-      Protected:
-      int PlayerID;
+      protected:
+      int playerID;
       //string PlayerName;
       int piecesLeft;
       // a Vector to keep track of the number of pieces each player has that are displayed on board
       vector<int> piecesDisplayed;
       
-      Public:
-      Player(int id); // argument constructor
+      public:
+      Player(int Playerid); // argument constructor
       int getPlayerId();
       int getPiecesLeft();
       int getPiecesDisplayed();
-      int <int> getPiecesDisplayedVector();
+      vector <int> getPiecesDisplayedVector();
       
       // setter functions
       void increasePieces();
       
       
       //Update the state of the pieces displayed on board
-      void makePiecesOnBoardMove(int position);
+      void updateBoardPosition(int position1, int position2);
       void removePieces(int position);
-      void displayePiecesToBoard(int position);
+      void displayPiecesToBoard(int position);
       
       //This function should be called if the oppoent forms a Mill. 
       //it checks if the player has any pieces that are volunerable and can be removed. 
