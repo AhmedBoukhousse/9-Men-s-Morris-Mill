@@ -4,7 +4,7 @@
 Player::Player(int id)
 {
   piecesLeft = 9;
-  this-> id = playerID;
+  this-> playerID = id;
 
 }
 
@@ -34,26 +34,27 @@ vector<int> Player::getPiecesDisplayedVector()
 void Player::increasePieces()
 {
   piecesLeft++;
+}
 
-void Player::removePieceFromBoard(int position)
+void Player::removePieces(int position)
 {
   
-  if(getPicesDisplayed() > 0)
+  if(getPiecesDisplayed() > 0)
   {
-    piecesDosplayed.erase(std::find(piecesDisplayed.begin(), piecesDisplayed.end(), position));
+    piecesDisplayed.erase(std::find(piecesDisplayed.begin(), piecesDisplayed.end(), position));
   }
   
 }
   
- void Player::makePiecesOnBoardMove(int position)
+ void Player::updateBoardPosition(int position1, int position2)
  {
-   removePieces(position1, position2);
+   removePieces(position1);
    piecesLeft++;
-   displayPieceToTheBoard(position 2);
+   displayPiecesToBoard(position2);
    
  }
   
-  void Player::displayPieceToBoard(int position)
+  void Player::displayPiecesToBoard(int position)
  {
     if(piecesLeft > 0)
     {
