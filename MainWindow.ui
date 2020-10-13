@@ -27,8 +27,14 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#a7 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#a7:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -44,8 +50,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#a4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#a4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -61,8 +73,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#a1 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#a1:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -78,8 +96,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#g7 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#g7:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -95,8 +119,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#g4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#g4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -112,8 +142,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#g1 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#g1:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -129,8 +165,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d1 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d1:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -146,8 +188,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d6 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d6:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -163,8 +211,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#b4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#b4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -180,8 +234,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d2 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d2:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -197,8 +257,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d3 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d3:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -214,8 +280,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#c4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#c4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -231,8 +303,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#c5 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#c5:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -248,8 +326,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#f4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#f4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -265,8 +349,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#e4 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#e4:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -282,8 +372,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#e5 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#e5:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -299,8 +395,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#e3 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#e3:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -316,8 +418,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#c3 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#c3:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -333,8 +441,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#b6 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#b6:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -350,8 +464,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#f6 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#f6:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -367,8 +487,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#f2 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#f2:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -384,8 +510,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#b2 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#b2:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -401,8 +533,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d5 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d5:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -418,8 +556,14 @@ background-image: url(:/images/hole.png);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border: none;
-background-image: url(:/images/hole.png);</string>
+     <string notr="true">QPushButton#d7 {
+     border: none;
+	background-image: url(:/images/hole.png);
+ }
+ QPushButton#d7:hover {
+    background-image: url(:/images/highlight.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>

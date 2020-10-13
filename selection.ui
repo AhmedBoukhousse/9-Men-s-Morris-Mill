@@ -27,8 +27,14 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/11_p.png);
-border: none;</string>
+     <string notr="true">QPushButton#onePlayer {
+     background-image: url(:/images/11_p.png);
+	border: none;
+ }
+ QPushButton#onePlayer:hover {
+     background-image: url(:/images/11_p_h.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>
@@ -44,8 +50,14 @@ border: none;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/22_p.png);
-border: none;</string>
+     <string notr="true">QPushButton#twoPlayer {
+     background-image: url(:/images/22_p.png);
+	border: none;
+ }
+ QPushButton#twoPlayer:hover {
+     background-image: url(:/images/22_p_h.png);
+	border: none;
+ }</string>
     </property>
     <property name="text">
      <string/>

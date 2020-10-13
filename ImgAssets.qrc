@@ -4,9 +4,12 @@
         <file>red.png</file>
         <file>wood.jpeg</file>
         <file>hole.png</file>
-	<file>empty.png</file>
-	<file>back.jpeg</file>
-	<file>11_p.png</file>
-	<file>22_p.png</file>
+        <file>empty.png</file>
+        <file>back.jpeg</file>
+        <file>11_p.png</file>
+        <file>22_p.png</file>
+        <file>22_p_h.png</file>
+        <file>11_p_h.png</file>
+        <file>highlight.png</file>
     </qresource>
 </RCC>
