@@ -6,5 +6,7 @@
         <file>hole.png</file>
 	<file>empty.png</file>
 	<file>back.jpeg</file>
+	<file>11_p.png</file>
+	<file>22_p.png</file>
     </qresource>
 </RCC>

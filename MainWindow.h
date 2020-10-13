@@ -28,6 +28,7 @@ private:
     void setBlack(int button);
     void setRed(int button);
     void setEmpty(int button);
+    void setTurnButton(char color);
     Ui::MainWindow *ui;
     bool toggle = true;
     QPushButton* PB[24];

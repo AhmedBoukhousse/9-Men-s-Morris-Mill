@@ -32,6 +32,8 @@ MainWindow::MainWindow(QWidget *parent):
         signalMapper->setMapping(PB[i], i);
     }
     setWindowTitle(tr("Nine Men's Morris"));
+    ui->turnBox->setEnabled(false);
+    setTurnButton('r');
 }
 
 void MainWindow::setBlack(int button)
@@ -58,10 +60,22 @@ void MainWindow::setEmpty(int button)
     gameBoard.removePiece(button);
 }
 
+void MainWindow::setTurnButton(char color)
+{
+    if(color == 'r')
+        ui->turnBox->setIcon(redIcon);
+    else if(color == 'b')
+        ui->turnBox->setIcon(blackIcon);
+    else
+        ui->turnBox->setIcon(blackIcon);
+    ui->turnBox->setIconSize(QSize(65, 65));
+}
+
 void MainWindow::handleButton2(int button)
 {
     if (toggle == true && red > 0)
     {
+        setTurnButton('b');
         setRed(button);
         toggle=false;
         red--;
@@ -69,6 +83,7 @@ void MainWindow::handleButton2(int button)
     }
     else if (toggle == false && black > 0)
     {
+        setTurnButton('r');
         setBlack(button);
         toggle =true;
         black--;

@@ -12,17 +12,22 @@ SOURCES += \
     board.cpp \
     main.cpp \
     MainWindow.cpp \
+    notready.cpp \
     player.cpp \
+    move.cpp \
     selection.cpp
 
 HEADERS += \
     MainWindow.h \
     board.h \
+    notready.h \
     player.h \
+    move.h \
     selection.h
 
 FORMS += \
     MainWindow.ui \
+    notready.ui \
     selection.ui
 
 # Default rules for deployment.
