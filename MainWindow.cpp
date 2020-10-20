@@ -86,6 +86,21 @@ void MainWindow::updateBoard()
     }
 }
 
+void MainWindow::millCheck()
+{
+    int playerMill = gameBoard.checkMill();
+    if (playerMill == 1)
+    {
+        ui->textEdit->setText(tr("PLAYER 1 HAS A MILL"));
+        //gameState = 3;
+    }
+    if (playerMill == 2)
+    {
+        ui->textEdit->setText(tr("PLAYER 2 HAS A MILL"));
+        //gameState = 3;
+    }
+}
+
 void MainWindow::makeClickable(int pid)
 {
     for (int i = 0; i < 24; i++)
@@ -137,7 +152,8 @@ void MainWindow::handleButton2(int button)
             updateBoard();
             toggle=false;
             red--;
-            //CheckForMills
+            millCheck();
+
         }
         else if (toggle == false && black > 0)
         {
@@ -146,7 +162,7 @@ void MainWindow::handleButton2(int button)
             updateBoard();
             toggle=true;
             black--;
-            //CheckForMills
+            millCheck();
         }
         if (red == 0 && black == 0)
         {
@@ -172,6 +188,7 @@ void MainWindow::handleButton2(int button)
                 movePiece(1, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot))
                 {
+                    millCheck();
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = false;
@@ -203,6 +220,7 @@ void MainWindow::handleButton2(int button)
                 movePiece(2, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot))
                 {
+                    millCheck();
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = true;
@@ -220,6 +238,10 @@ void MainWindow::handleButton2(int button)
                 return;
             }
         }
+    }
+    if (gameState == 3) //piece removal state
+    {
+
     }
 }
 

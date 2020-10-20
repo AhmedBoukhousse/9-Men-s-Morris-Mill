@@ -32,6 +32,7 @@ private:
     void movePiece(int player, int start, int dest);
     void updateBoard();
     void makeClickable(int pid);
+    void millCheck();
     Ui::MainWindow *ui;
     bool toggle = true;
     QPushButton* PB[24];
