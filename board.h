@@ -1,14 +1,18 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-
+#include "player.h"
+#include <map>
 class Board
 {
 public:
     Board();
     int boardArea[24];
+    //Player player1(1);
+    //Player player2;
     bool flightMode = false;
-    int checkMill(int winner);
+    map<int, int> playerPieces;
+    int checkMill();
     bool checkAdjacent(int origin, int dest);
     int collCheck(int i, int j, int k);
     void addPiece(int pid, int slot);

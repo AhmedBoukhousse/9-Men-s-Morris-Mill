@@ -29,12 +29,18 @@ private:
     void setRed(int button);
     void setEmpty(int button);
     void setTurnButton(char color);
+    void movePiece(int player, int start, int dest);
+    void updateBoard();
+    void makeClickable(int pid);
     Ui::MainWindow *ui;
     bool toggle = true;
     QPushButton* PB[24];
     QSignalMapper *signalMapper;
     int red = 9;
     int black = 9;
+    int gameState = 1;
+    int startSlot = 4822;
+    int endSlot= 4822;
     QIcon redIcon;
     QIcon blackIcon;
     QIcon blankIcon;

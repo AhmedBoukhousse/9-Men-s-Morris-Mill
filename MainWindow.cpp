@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent):
     blankIcon.addPixmap(QPixmap(":/images/empty.png"), QIcon::Normal);
     blankIcon.addPixmap(QPixmap(":/images/empty.png"), QIcon::Disabled);
 
+    ui->textEdit->setText(tr("Time to add pieces"));
+
     signalMapper = new QSignalMapper(this);
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
 
@@ -71,25 +73,155 @@ void MainWindow::setTurnButton(char color)
     ui->turnBox->setIconSize(QSize(65, 65));
 }
 
+void MainWindow::updateBoard()
+{
+    for (int i = 0; i < 24; i++)
+    {
+        if (gameBoard.boardArea[i] == 0)
+            setEmpty(i);
+        else if (gameBoard.boardArea[i] == 1)
+            setRed(i);
+        else if (gameBoard.boardArea[i] == 2)
+            setBlack(i);
+    }
+}
+
+void MainWindow::makeClickable(int pid)
+{
+    for (int i = 0; i < 24; i++)
+    {
+        if (pid == 1)
+        {
+            if (gameBoard.boardArea[i] == 0)
+                PB[i]->setEnabled(false);
+            else if (gameBoard.boardArea[i] == 1)
+                PB[i]->setEnabled(true);
+            else if (gameBoard.boardArea[i] == 2)
+                PB[i]->setEnabled(false);
+        }
+        if (pid == 2)
+        {
+            if (gameBoard.boardArea[i] == 0)
+                PB[i]->setEnabled(false);
+            else if (gameBoard.boardArea[i] == 1)
+                PB[i]->setEnabled(false);
+            else if (gameBoard.boardArea[i] == 2)
+                PB[i]->setEnabled(true);
+        }
+        if (pid == 3)
+        {
+            if (gameBoard.boardArea[i] == 0)
+                PB[i]->setEnabled(true);
+            else if (gameBoard.boardArea[i] == 1)
+                PB[i]->setEnabled(false);
+            else if (gameBoard.boardArea[i] == 2)
+                PB[i]->setEnabled(false);
+        }
+    }
+}
+
+void MainWindow::movePiece(int player, int start, int dest)
+{
+    gameBoard.swapPiece(player,start,dest);
+    updateBoard();
+}
+
 void MainWindow::handleButton2(int button)
 {
-    if (toggle == true && red > 0)
+    if(gameState == 1) //adding piece state
     {
-        setTurnButton('b');
-        setRed(button);
-        toggle=false;
-        red--;
-        //CheckForMills
+        if (toggle == true && red > 0)
+        {
+            setTurnButton('b');
+            gameBoard.addPiece(1,button);
+            updateBoard();
+            toggle=false;
+            red--;
+            //CheckForMills
+        }
+        else if (toggle == false && black > 0)
+        {
+            setTurnButton('r');
+            gameBoard.addPiece(2,button);
+            updateBoard();
+            toggle=true;
+            black--;
+            //CheckForMills
+        }
+        if (red == 0 && black == 0)
+        {
+            gameState = 2;
+            ui->textEdit->setText(tr("Time to move pieces"));
+            makeClickable(1);
+            return;
+        }
     }
-    else if (toggle == false && black > 0)
+    if (gameState == 2) //move piece state
     {
-        setTurnButton('r');
-        setBlack(button);
-        toggle =true;
-        black--;
-        //CheckForMills
+        if (toggle == true)
+        {
+            if (startSlot == 4822)
+            {
+                startSlot = button;
+                makeClickable(3);
+                return;
+            }
+            else
+            {
+                endSlot = button;
+                movePiece(1, startSlot, endSlot);
+                if(gameBoard.checkAdjacent(startSlot,endSlot))
+                {
+                    startSlot = 4822;
+                    endSlot = 4822;
+                    toggle = false;
+                    makeClickable(2);
+                    setTurnButton('b');
+                }
+                else
+                {
+                    ui->textEdit->setText(tr("Illegal move, reselect a piece"));
+                    startSlot = 4822;
+                    endSlot = 4822;
+                    makeClickable(1);
+
+                }
+                return;
+            }
+        }
+        if (toggle == false)
+        {
+            if (startSlot == 4822)
+            {
+                startSlot = button;
+                makeClickable(3);
+                return;
+            }
+            else
+            {
+                endSlot = button;
+                movePiece(2, startSlot, endSlot);
+                if(gameBoard.checkAdjacent(startSlot,endSlot))
+                {
+                    startSlot = 4822;
+                    endSlot = 4822;
+                    toggle = true;
+                    makeClickable(1);
+                    setTurnButton('r');
+                }
+                else
+                {
+                    ui->textEdit->setText(tr("Illegal move, reselect a piece"));
+                    startSlot = 4822;
+                    endSlot = 4822;
+                    makeClickable(2);
+
+                }
+                return;
+            }
+        }
     }
- }
+}
 
 
 MainWindow::~MainWindow()

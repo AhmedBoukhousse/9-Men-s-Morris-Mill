@@ -1,12 +1,13 @@
 #include "board.h"
-
 Board::Board()
 {
     for(int i =0; i < 24; i++)
         boardArea[i] = 0;
+    playerPieces[1] = 0; //temporary
+    playerPieces[2] = 0;
 }
 
-int Board::checkMill(int winner)
+int Board::checkMill()
 {
     int p1row = 0;
     int p2row = 0;
@@ -72,18 +73,22 @@ int Board::collCheck(int i, int j, int k)
 
 void Board::addPiece(int pid, int slot)
 {
-    if(boardArea[slot] == 0)
+    if(boardArea[slot] == 0 && playerPieces[pid] < 9)
+    {
         boardArea[slot] =  pid;
-       //pid.pieces++;
+        playerPieces[pid]++;
+    }
     else
         return;
 }
 
 void Board::removePiece(int slot)
 {
+    if (playerPieces[boardArea[slot]] > 0) {
     int pid = boardArea[slot];
-    boardArea[slot] == 0;
-    //pid.pieces = pid.pieces -  1;
+    boardArea[slot] = 0;
+    playerPieces[pid] = playerPieces[pid] -  1;
+    }
 }
 
 bool Board::checkAdjacent(int origin, int dest)
@@ -98,10 +103,10 @@ bool Board::checkAdjacent(int origin, int dest)
 
 void Board::swapPiece(int pid, int origin, int dest)
 {
-    if(boardArea[origin] == pid && boardArea[dest  == 0])
+    if(boardArea[origin] == pid && boardArea[dest]==0)
     {
         bool adjacent = true;
-      if (flightMode == false)
+        if (flightMode == false)
             adjacent = checkAdjacent(origin, dest);
         if (adjacent == true)
         {
