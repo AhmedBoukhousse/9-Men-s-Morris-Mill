@@ -86,19 +86,27 @@ void MainWindow::updateBoard()
     }
 }
 
-void MainWindow::millCheck()
+int MainWindow::millCheck(int newPiece)
 {
-    int playerMill = gameBoard.checkMill();
+    if (newPiece == 4822)
+    {
+        return 0;
+    }
+
+    int playerMill = gameBoard.checkMill(newPiece);
     if (playerMill == 1)
     {
         ui->textEdit->setText(tr("PLAYER 1 HAS A MILL"));
-        //gameState = 3;
+        prevGameState = gameState;
+        gameState = 3;
     }
     if (playerMill == 2)
     {
         ui->textEdit->setText(tr("PLAYER 2 HAS A MILL"));
-        //gameState = 3;
+        prevGameState = gameState;
+        gameState = 3;
     }
+    return playerMill;
 }
 
 void MainWindow::makeClickable(int pid)
@@ -143,26 +151,25 @@ void MainWindow::movePiece(int player, int start, int dest)
 
 void MainWindow::handleButton2(int button)
 {
-    if(gameState == 1) //adding piece state
+    if (gameState == 1) //adding piece state
     {
         if (toggle == true && red > 0)
         {
             setTurnButton('b');
-            gameBoard.addPiece(1,button);
+            setRed(button);
             updateBoard();
+           // whoMilled = millCheck();
             toggle=false;
             red--;
-            millCheck();
-
         }
         else if (toggle == false && black > 0)
         {
             setTurnButton('r');
-            gameBoard.addPiece(2,button);
+            setBlack(button);
             updateBoard();
+           // whoMilled = millCheck();
             toggle=true;
             black--;
-            millCheck();
         }
         if (red == 0 && black == 0)
         {
@@ -188,7 +195,7 @@ void MainWindow::handleButton2(int button)
                 movePiece(1, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot))
                 {
-                    millCheck();
+                    whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = false;
@@ -220,7 +227,7 @@ void MainWindow::handleButton2(int button)
                 movePiece(2, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot))
                 {
-                    millCheck();
+                    whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = true;
@@ -233,7 +240,6 @@ void MainWindow::handleButton2(int button)
                     startSlot = 4822;
                     endSlot = 4822;
                     makeClickable(2);
-
                 }
                 return;
             }
@@ -241,7 +247,26 @@ void MainWindow::handleButton2(int button)
     }
     if (gameState == 3) //piece removal state
     {
-
+        if (whoMilled == 1)
+        {
+            ui->textEdit->setText(tr("GET"));
+            makeClickable(2);
+            setEmpty(button);
+            updateBoard();
+            toggle = false;
+            ui->textEdit->setText(tr("GOT"));
+        }
+        else if (whoMilled == 2)
+        {
+            makeClickable(1);
+            setEmpty(button);
+            updateBoard();
+            toggle = true;
+        }
+        startSlot = 4822;
+        endSlot = 4822;
+        gameState = 2;
+        return;
     }
 }
 

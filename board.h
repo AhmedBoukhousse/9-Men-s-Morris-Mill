@@ -12,13 +12,28 @@ public:
     //Player player2;
     bool flightMode = false;
     map<int, int> playerPieces;
-    int checkMill();
+    int checkMill(int pos);
     bool checkAdjacent(int origin, int dest);
     int collCheck(int i, int j, int k);
     void addPiece(int pid, int slot);
     void removePiece(int slot);
     void swapPiece(int pid, int origin, int dest);
-    int colls[24] = {0,9,21,3,10,18,6,11,15,1,4,7,16,19,22,8,12,17,5,13,21,2,14,23};
+    int mills[48] = {0,9,21,
+                     3,10,18,
+                     6,11,15,
+                     1,4,7,
+                     16,19,22,
+                     8,12,17,
+                     5,13,20,
+                     2,14,23,
+                     0,1,2,
+                     3,4,5,
+                     6,7,8,
+                     9,10,11,
+                     12,13,14,
+                     15,16,17,
+                     18,19,20,
+                     21,22,23};
     int adjacent[64] =
     {
         0,1,

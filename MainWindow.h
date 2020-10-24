@@ -32,7 +32,8 @@ private:
     void movePiece(int player, int start, int dest);
     void updateBoard();
     void makeClickable(int pid);
-    void millCheck();
+    int millCheck(int newPiece);
+    int prevGameState;
     Ui::MainWindow *ui;
     bool toggle = true;
     QPushButton* PB[24];
@@ -42,6 +43,7 @@ private:
     int gameState = 1;
     int startSlot = 4822;
     int endSlot= 4822;
+    int whoMilled;
     QIcon redIcon;
     QIcon blackIcon;
     QIcon blankIcon;
