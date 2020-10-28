@@ -76,6 +76,8 @@ void Board::swapPiece(int pid, int origin, int dest)
 {
     if(boardArea[origin] == pid && boardArea[dest]==0)
     {
+        if(playerPieces[pid] == 3)
+            flightMode = true;
         bool adjacent = true;
         if (flightMode == false)
             adjacent = checkAdjacent(origin, dest);
@@ -84,5 +86,7 @@ void Board::swapPiece(int pid, int origin, int dest)
             boardArea[origin] = 0;
             boardArea[dest] = pid;
         }
+        
     }
+    flightMode = false;
 }
