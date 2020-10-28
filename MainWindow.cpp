@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    prevGameState = 1;
     ui->setupUi(this);
     PB[0]=ui->a7;PB[1]=ui->d7;PB[2]=ui->g7;PB[3]=ui->b6;
     PB[4]=ui->d6;PB[5]=ui->f6;PB[6]=ui->c5;PB[7]=ui->d5;
@@ -98,12 +99,16 @@ int MainWindow::millCheck(int newPiece)
     {
         ui->textEdit->setText(tr("PLAYER 1 HAS A MILL"));
         prevGameState = gameState;
+        setTurnButton('r');
+        makeClickable(2);
         gameState = 3;
     }
     if (playerMill == 2)
     {
         ui->textEdit->setText(tr("PLAYER 2 HAS A MILL"));
         prevGameState = gameState;
+        setTurnButton('b');
+        makeClickable(1);
         gameState = 3;
     }
     return playerMill;
@@ -139,6 +144,7 @@ void MainWindow::makeClickable(int pid)
                 PB[i]->setEnabled(false);
             else if (gameBoard.boardArea[i] == 2)
                 PB[i]->setEnabled(false);
+            ui->textEdit->setText(tr("WRONG"));
         }
     }
 }
@@ -151,6 +157,28 @@ void MainWindow::movePiece(int player, int start, int dest)
 
 void MainWindow::handleButton2(int button)
 {
+    if (gameState == 3) //piece removal state
+    {
+        setEmpty(button);
+        if (whoMilled == 1)
+        {
+            toggle = false;
+            makeClickable(2);
+            setTurnButton('b');
+        }
+        else if (whoMilled == 2)
+        {
+            toggle = true;
+            makeClickable(1);
+            setTurnButton('r');
+        }
+        startSlot = 4822;
+        endSlot = 4822;
+        gameState = prevGameState;
+        if (prevGameState == 1)
+            makeClickable(3);
+        return;
+    }
     if (gameState == 1) //adding piece state
     {
         if (toggle == true && red > 0)
@@ -158,7 +186,7 @@ void MainWindow::handleButton2(int button)
             setTurnButton('b');
             setRed(button);
             updateBoard();
-           // whoMilled = millCheck();
+            whoMilled = millCheck(button);
             toggle=false;
             red--;
         }
@@ -167,7 +195,7 @@ void MainWindow::handleButton2(int button)
             setTurnButton('r');
             setBlack(button);
             updateBoard();
-           // whoMilled = millCheck();
+            whoMilled = millCheck(button);
             toggle=true;
             black--;
         }
@@ -244,29 +272,6 @@ void MainWindow::handleButton2(int button)
                 return;
             }
         }
-    }
-    if (gameState == 3) //piece removal state
-    {
-        if (whoMilled == 1)
-        {
-            ui->textEdit->setText(tr("GET"));
-            makeClickable(2);
-            setEmpty(button);
-            updateBoard();
-            toggle = false;
-            ui->textEdit->setText(tr("GOT"));
-        }
-        else if (whoMilled == 2)
-        {
-            makeClickable(1);
-            setEmpty(button);
-            updateBoard();
-            toggle = true;
-        }
-        startSlot = 4822;
-        endSlot = 4822;
-        gameState = 2;
-        return;
     }
 }
 
