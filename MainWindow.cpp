@@ -57,10 +57,13 @@ void MainWindow::setRed(int button)
 
 void MainWindow::setEmpty(int button)
 {
+    gameBoard.removePiece(button);
+    if (gameBoard.boardArea[button] == 0)
+    {
     PB[button]->setIcon(blankIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(true);
-    gameBoard.removePiece(button);
+    }
 }
 
 void MainWindow::setTurnButton(char color)
@@ -144,7 +147,6 @@ void MainWindow::makeClickable(int pid)
                 PB[i]->setEnabled(false);
             else if (gameBoard.boardArea[i] == 2)
                 PB[i]->setEnabled(false);
-            ui->textEdit->setText(tr("WRONG"));
         }
     }
 }
@@ -160,6 +162,11 @@ void MainWindow::handleButton2(int button)
     if (gameState == 3) //piece removal state
     {
         setEmpty(button);
+        if (gameBoard.boardArea[button] != 0)
+        {
+            ui->textEdit->setText(tr("that piece is in a mill, try again!"));
+            return;
+        }
         if (whoMilled == 1)
         {
             toggle = false;
@@ -202,13 +209,15 @@ void MainWindow::handleButton2(int button)
         if (red == 0 && black == 0)
         {
             gameState = 2;
-            ui->textEdit->setText(tr("Time to move pieces"));
+            //ui->textEdit->setText(tr("Time to move pieces"));
             makeClickable(1);
             return;
         }
     }
     if (gameState == 2) //move piece state
     {
+        if (gameBoard.hasLegalMoves(1) == false)
+            ui->textEdit->setText(tr("Player 1 locked"));
         if (toggle == true)
         {
             if (startSlot == 4822)
