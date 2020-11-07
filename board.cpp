@@ -54,12 +54,14 @@ void Board::addPiece(int pid, int slot)
 
 void Board::removePiece(int slot)
 {
-    if (playerPieces[boardArea[slot]] > 0)
+    int playerPos = boardArea[slot];
+   if ((playerPieces[boardArea[slot]] > 0 && checkMill(slot) == 0) || playerPieces[playerPos] == 3) 
     {
-    int pid = boardArea[slot];
-    boardArea[slot] = 0;
-    playerPieces[pid] = playerPieces[pid] -  1;
+             int pid = boardArea[slot];
+             boardArea[slot] = 0;
+             playerPieces[pid] = playerPieces[pid] -  1;
     }
+   
 }
 
 bool Board::checkAdjacent(int origin, int dest)
