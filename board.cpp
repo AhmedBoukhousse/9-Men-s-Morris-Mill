@@ -44,14 +44,17 @@ void Board::addPiece(int pid, int slot)
 
 bool Board::allInMills(int piece)
 {
-    vector<int> milledPieces;
+    vector<int> milledPiecesP1;
+    vector<int> milledPiecesP2;
         for (int i = 0; i < 24; i++) {
-            if (boardArea[i] > 0 && checkMill(i))
-                milledPieces.push_back(i);
+            if (boardArea[i] > 0 && checkMill(i) == 1)
+                milledPiecesP1.push_back(i);
+            if (boardArea[i] > 0 && checkMill(i) == 2)
+                milledPiecesP2.push_back(i);
         }
-
-        vector<int>::iterator it = find(milledPieces.begin(), milledPieces.end(), piece);
-        if (it != milledPieces.end())
+        if (milledPiecesP1.size() == playerPiecesAmt[1] && piece == 1)
+            return true;
+        else if (milledPiecesP2.size() == playerPiecesAmt[2] && piece == 2)
             return true;
         else
             return false;
@@ -60,7 +63,7 @@ bool Board::allInMills(int piece)
 void Board::removePiece(int slot)
 {
     int playerPos = boardArea[slot];
-    if (playerPiecesAmt[boardArea[slot]] > 0 && (checkMill(slot) == 0 || playerPiecesAmt[playerPos] == 3 || allInMills(slot)))
+    if (playerPiecesAmt[boardArea[slot]] > 0 && (checkMill(slot) == 0 || playerPiecesAmt[playerPos] == 3 || allInMills(boardArea[slot])))
     {
         int pid = boardArea[slot];
         boardArea[slot] = 0;
