@@ -1,10 +1,11 @@
 #include "board.h"
+
 Board::Board()
 {
     for(int i =0; i < 24; i++)
         boardArea[i] = 0;
-    playerPieces[1] = 0; //temporary
-    playerPieces[2] = 0;
+    playerPiecesAmt[1] = 0;
+    playerPiecesAmt[2] = 0;
 }
 
 int Board::checkMill(int pos)
@@ -30,38 +31,41 @@ int Board::checkMill(int pos)
     return 0;
 }
 
-//manually check for column based mills
-int Board::collCheck(int i, int j, int k)
-{
-    if(boardArea[i] == 1 && boardArea[j] == 1 && boardArea[k] == 1)
-        return 1;
-    else if (boardArea[i] == 2 && boardArea[j] == 2 && boardArea[k] == 2)
-        return 2;
-    else
-        return 0;
-}
-
 void Board::addPiece(int pid, int slot)
 {
-    if(boardArea[slot] == 0 && playerPieces[pid] < 9)
+    if(boardArea[slot] == 0 && playerPiecesAmt[pid] < 9)
     {
         boardArea[slot] =  pid;
-        playerPieces[pid]++;
+        playerPiecesAmt[pid]++;
     }
     else
         return;
 }
 
+bool Board::allInMills(int piece)
+{
+    vector<int> milledPieces;
+        for (int i = 0; i < 24; i++) {
+            if (boardArea[i] > 0 && checkMill(i))
+                milledPieces.push_back(i);
+        }
+
+        vector<int>::iterator it = find(milledPieces.begin(), milledPieces.end(), piece);
+        if (it != milledPieces.end())
+            return true;
+        else
+            return false;
+}
+
 void Board::removePiece(int slot)
 {
     int playerPos = boardArea[slot];
-   if ((playerPieces[boardArea[slot]] > 0 && checkMill(slot) == 0) || playerPieces[playerPos] == 3) 
+    if (playerPiecesAmt[boardArea[slot]] > 0 && (checkMill(slot) == 0 || playerPiecesAmt[playerPos] == 3 || allInMills(slot)))
     {
-             int pid = boardArea[slot];
-             boardArea[slot] = 0;
-             playerPieces[pid] = playerPieces[pid] -  1;
+        int pid = boardArea[slot];
+        boardArea[slot] = 0;
+        playerPiecesAmt[pid] = playerPiecesAmt[pid] -  1;
     }
-   
 }
 
 bool Board::checkAdjacent(int origin, int dest)
@@ -74,12 +78,33 @@ bool Board::checkAdjacent(int origin, int dest)
       return false;
 }
 
+bool Board::hasLegalMoves(int pid)
+{
+    for(int i = 0; i < 24; i++)
+    {
+        if (boardArea[i] == pid)
+        {
+            for(int j = 0; j < 24; j++)
+            {
+                if (boardArea[j] == 0)
+                {
+                    if (checkAdjacent(i, j))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
 void Board::swapPiece(int pid, int origin, int dest)
 {
     if(boardArea[origin] == pid && boardArea[dest]==0)
     {
-        if(playerPieces[pid] == 3)
-            flightMode = true;
+        if (playerPiecesAmt[pid] == 3)
+                flightMode = true;
         bool adjacent = true;
         if (flightMode == false)
             adjacent = checkAdjacent(origin, dest);
@@ -88,7 +113,6 @@ void Board::swapPiece(int pid, int origin, int dest)
             boardArea[origin] = 0;
             boardArea[dest] = pid;
         }
-        
     }
     flightMode = false;
 }

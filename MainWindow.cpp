@@ -117,6 +117,22 @@ int MainWindow::millCheck(int newPiece)
     return playerMill;
 }
 
+void MainWindow::isGameEnd()
+{
+    if (gameBoard.hasLegalMoves(1) == false && gameBoard.playerPiecesAmt[1] > 0)
+    {
+        ui->textEdit->setText(tr("Player 1 locked"));
+        this->close();
+    }
+    if (gameBoard.hasLegalMoves(2) == false && gameBoard.playerPiecesAmt[2] > 0)
+    {
+        ui->textEdit->setText(tr("Player 2 locked"));
+        this->close();
+    }
+    if ((gameBoard.playerPiecesAmt[1] < 3 || gameBoard.playerPiecesAmt[2] < 3))
+        this->close();
+}
+
 void MainWindow::makeClickable(int pid)
 {
     for (int i = 0; i < 24; i++)
@@ -182,6 +198,8 @@ void MainWindow::handleButton2(int button)
         startSlot = 4822;
         endSlot = 4822;
         gameState = prevGameState;
+        if (prevGameState == 2)
+            isGameEnd();
         if (prevGameState == 1)
             makeClickable(3);
         return;
@@ -209,15 +227,14 @@ void MainWindow::handleButton2(int button)
         if (red == 0 && black == 0)
         {
             gameState = 2;
-            //ui->textEdit->setText(tr("Time to move pieces"));
+            isGameEnd();
+            ui->textEdit->setText(tr("Time to move pieces"));
             makeClickable(1);
             return;
         }
     }
     if (gameState == 2) //move piece state
     {
-        if (gameBoard.hasLegalMoves(1) == false)
-            ui->textEdit->setText(tr("Player 1 locked"));
         if (toggle == true)
         {
             if (startSlot == 4822)
@@ -230,12 +247,13 @@ void MainWindow::handleButton2(int button)
             {
                 endSlot = button;
                 movePiece(1, startSlot, endSlot);
-                if(gameBoard.checkAdjacent(startSlot,endSlot))
+                if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[1] == 3)
                 {
                     whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = false;
+                    isGameEnd();
                     makeClickable(2);
                     setTurnButton('b');
                 }
@@ -262,11 +280,12 @@ void MainWindow::handleButton2(int button)
             {
                 endSlot = button;
                 movePiece(2, startSlot, endSlot);
-                if(gameBoard.checkAdjacent(startSlot,endSlot))
+                if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[2] == 3)
                 {
                     whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
+                    isGameEnd();
                     toggle = true;
                     makeClickable(1);
                     setTurnButton('r');

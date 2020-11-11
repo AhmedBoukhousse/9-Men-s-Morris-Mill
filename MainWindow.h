@@ -33,6 +33,7 @@ private:
     void updateBoard();
     void makeClickable(int pid);
     int millCheck(int newPiece);
+    void isGameEnd();
     int prevGameState;
     Ui::MainWindow *ui;
     bool toggle = true;

@@ -3,6 +3,8 @@
 
 #include "player.h"
 #include <map>
+#include <algorithm>
+
 class Board
 {
 public:
@@ -11,13 +13,14 @@ public:
     //Player player1(1);
     //Player player2;
     bool flightMode = false;
-    map<int, int> playerPieces;
+    map<int, int> playerPiecesAmt;
     int checkMill(int pos);
     bool checkAdjacent(int origin, int dest);
-    int collCheck(int i, int j, int k);
     void addPiece(int pid, int slot);
+    bool allInMills(int piece);
     void removePiece(int slot);
     void swapPiece(int pid, int origin, int dest);
+    bool hasLegalMoves(int pid);
     int mills[48] = {0,9,21,
                      3,10,18,
                      6,11,15,
