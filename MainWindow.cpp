@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent):
     setWindowTitle(tr("Nine Men's Morris"));
     ui->turnBox->setEnabled(false);
     setTurnButton('r');
+    whowon = new winDialog();
 }
 
 void MainWindow::setBlack(int button)
@@ -119,18 +120,38 @@ int MainWindow::millCheck(int newPiece)
 
 void MainWindow::isGameEnd()
 {
-    if (gameBoard.hasLegalMoves(1) == false && gameBoard.playerPiecesAmt[1] > 0)
+    int scenario = gameBoard.GameOver();
+    switch (scenario)
     {
+    case 1:
         ui->textEdit->setText(tr("Player 1 locked"));
+        whowon->whoWonText(1);
+        whowon->show();
         this->close();
-    }
-    if (gameBoard.hasLegalMoves(2) == false && gameBoard.playerPiecesAmt[2] > 0)
-    {
+        break;
+
+    case 2:
         ui->textEdit->setText(tr("Player 2 locked"));
+        whowon->whoWonText(2);
+        whowon->show();
         this->close();
-    }
-    if ((gameBoard.playerPiecesAmt[1] < 3 || gameBoard.playerPiecesAmt[2] < 3))
+        break;
+
+    case 3:
+        whowon->whoWonText(3);
+        whowon->show();
         this->close();
+        break;
+
+    case 4:
+        whowon->whoWonText(4);
+        whowon->show();
+        this->close();
+        break;
+
+    case 5:
+        break;
+}
 }
 
 void MainWindow::makeClickable(int pid)
@@ -199,9 +220,15 @@ void MainWindow::handleButton2(int button)
         endSlot = 4822;
         gameState = prevGameState;
         if (prevGameState == 2)
+        {
             isGameEnd();
+            ui->textEdit->setText(tr("Time to move pieces"));
+        }
         if (prevGameState == 1)
+        {
+            ui->textEdit->setText(tr("Time to add pieces"));
             makeClickable(3);
+        }
         return;
     }
     if (gameState == 1) //adding piece state
@@ -227,9 +254,10 @@ void MainWindow::handleButton2(int button)
         if (red == 0 && black == 0)
         {
             gameState = 2;
+            whoMilled = millCheck(button);
             isGameEnd();
-            ui->textEdit->setText(tr("Time to move pieces"));
             makeClickable(1);
+            ui->textEdit->setText(tr("Time to move pieces"));
             return;
         }
     }
@@ -249,13 +277,13 @@ void MainWindow::handleButton2(int button)
                 movePiece(1, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[1] == 3)
                 {
+                    setTurnButton('b');
                     whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
                     toggle = false;
                     isGameEnd();
-                    makeClickable(2);
-                    setTurnButton('b');
+                    makeClickable(2);                    
                 }
                 else
                 {
@@ -263,7 +291,6 @@ void MainWindow::handleButton2(int button)
                     startSlot = 4822;
                     endSlot = 4822;
                     makeClickable(1);
-
                 }
                 return;
             }
@@ -282,13 +309,13 @@ void MainWindow::handleButton2(int button)
                 movePiece(2, startSlot, endSlot);
                 if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[2] == 3)
                 {
+                    setTurnButton('r');
                     whoMilled = millCheck(endSlot);
                     startSlot = 4822;
                     endSlot = 4822;
                     isGameEnd();
                     toggle = true;
                     makeClickable(1);
-                    setTurnButton('r');
                 }
                 else
                 {

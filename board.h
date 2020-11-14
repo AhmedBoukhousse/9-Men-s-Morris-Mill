@@ -21,6 +21,7 @@ public:
     void removePiece(int slot);
     void swapPiece(int pid, int origin, int dest);
     bool hasLegalMoves(int pid);
+    int GameOver();
     int mills[48] = {0,9,21,
                      3,10,18,
                      6,11,15,

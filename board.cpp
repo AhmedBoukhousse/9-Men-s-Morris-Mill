@@ -59,6 +59,19 @@ bool Board::allInMills(int piece)
         else
             return false;
 }
+int Board::GameOver()
+{
+    if (hasLegalMoves(1) == false && playerPiecesAmt[1] > 0)
+        return 1;
+    else if (hasLegalMoves(2) == false && playerPiecesAmt[2] > 0)
+        return 2;
+    if (playerPiecesAmt[1] < 3)
+        return 3;
+    else if (playerPiecesAmt[2] < 3)
+        return 4;
+    else
+        return 5;
+}
 
 void Board::removePiece(int slot)
 {

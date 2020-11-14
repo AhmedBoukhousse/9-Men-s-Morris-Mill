@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QSignalMapper>
 #include <QPixmap>
+#include "windialog.h"
 #include "board.h"
 
 QT_BEGIN_NAMESPACE
@@ -48,5 +49,6 @@ private:
     QIcon redIcon;
     QIcon blackIcon;
     QIcon blankIcon;
+    winDialog *whowon;
 };
 #endif // MAINWINDOW_H
