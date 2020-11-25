@@ -8,6 +8,14 @@ Board::Board()
     playerPiecesAmt[2] = 0;
 }
 
+Board::Board(int area[24])
+{
+    for(int i =0; i < 24; i++)
+        boardArea[i] = area[i];
+    playerPiecesAmt[1] = 0;
+    playerPiecesAmt[2] = 0;
+}
+
 int Board::checkMill(int pos)
 {
     int playerMilled;

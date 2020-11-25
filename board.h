@@ -9,6 +9,7 @@ class Board
 {
 public:
     Board();
+    Board(int area[24]);
     int boardArea[24];
     //Player player1(1);
     //Player player2;

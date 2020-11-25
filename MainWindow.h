@@ -7,6 +7,7 @@
 #include <QPixmap>
 #include "windialog.h"
 #include "board.h"
+#include "move.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +22,7 @@ public:
     QPushButton* button;
     ~MainWindow();
     Board gameBoard;
+    Move AI;
 
 private slots:
    void handleButton2(int button);
@@ -46,6 +48,7 @@ private:
     int startSlot = 4822;
     int endSlot= 4822;
     int whoMilled;
+    int playMode;
     QIcon redIcon;
     QIcon blackIcon;
     QIcon blankIcon;
