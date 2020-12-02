@@ -239,16 +239,16 @@ void MainWindow::handleButton2(int button)
             setRed(button);
             updateBoard();
             whoMilled = millCheck(button);
-            toggle=false; //disable this when testing AI
+            //toggle=false; //disable this when testing AI
             red--;
 
-            /*    //AI
-            AI.nbr_noeuds=0;
-            int chosen=AI.alphabeta1(gameBoard.boardArea,0,-1,0,-100000000000,+100000000000); //to see about this true
-            setBlack(chosen);
+    //AI
+            AI.updateHumanVectors(button, -1, gameBoard);
+            int AIPos = AI.askPlacePosition(gameBoard);
+            setBlack(AIPos);
+            AI.updateAIVectors(AIPos,-1,gameBoard);
             updateBoard();
             black--;
-            */
         }
         else if (toggle == false && black > 0)
         {
