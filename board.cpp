@@ -50,6 +50,17 @@ void Board::addPiece(int pid, int slot)
         return;
 }
 
+bool Board::isRemovable(int piece)
+{
+    int playerOfPiece = boardArea[piece];
+    if (allInMills(piece) == true)
+        return true;
+    if (checkMill(piece) == playerOfPiece)
+        return false;
+    else
+        return true;
+}
+
 bool Board::allInMills(int piece)
 {
     vector<int> milledPiecesP1;

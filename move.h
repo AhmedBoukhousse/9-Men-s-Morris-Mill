@@ -49,7 +49,7 @@ class Move
      *  Returns:    The position where the AI will remove a piece next
      */
 
-    int askRemovePosition(vector<int> protectedPoints);
+    int askRemovePosition(Board tempBoard);
 
     /*!
      *  Returns:    A pair of two integers: The positions from where and to where to AI will move a piece next

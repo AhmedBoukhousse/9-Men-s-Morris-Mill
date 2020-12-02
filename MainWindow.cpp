@@ -107,7 +107,14 @@ int MainWindow::millCheck(int newPiece)
         makeClickable(2);
         gameState = 3;
     }
-    if (playerMill == 2)
+    if (playerMill == 2 && AIMode == true)
+    {
+        int remover = AI.askRemovePosition(gameBoard);
+        setEmpty(remover);
+        updateBoard();
+        return playerMill;
+    }
+    if (playerMill == 2 && AIMode == false)
     {
         ui->textEdit->setText(tr("PLAYER 2 HAS A MILL"));
         prevGameState = gameState;
@@ -246,8 +253,9 @@ void MainWindow::handleButton2(int button)
             AI.updateHumanVectors(button, -1, gameBoard);
             int AIPos = AI.askPlacePosition(gameBoard);
             setBlack(AIPos);
-            AI.updateAIVectors(AIPos,-1,gameBoard);
+            AI.updateAIVectors(AIPos, -1, gameBoard);
             updateBoard();
+            whoMilled = millCheck(AIPos);
             black--;
         }
         else if (toggle == false && black > 0)

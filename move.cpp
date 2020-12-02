@@ -109,7 +109,7 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
     // Check if removing this piece has made a mill that was previously impossible for the AI player possible (May cause issues)
     int aiPieces = 0;
     int humanPieces = 0;
-    for(int i =0; i < impossible.size();)
+    for(int i = 0; i < impossible.size();)
     {
       millNr = impossible[i] * 3;
 
@@ -126,13 +126,13 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
 
       aiPieces = 0;
       humanPieces = 0;
-      for(int j = 0; j < 3; j++)
+      for(int k = 0; k < 3; k++)
       {
-        if(vertices[points[j]] == HUMAN_PLAYER_ID)
+        if(tempBoard.boardArea[points[k]] == HUMAN_PLAYER_ID)
         {
           humanPieces++;
         }
-        else if(vertices[points[j]] == AI_PLAYER_ID)
+        else if(tempBoard.boardArea[points[k]] == AI_PLAYER_ID)
         {
           aiPieces++;
         }
@@ -323,7 +323,7 @@ void Move::updateAIVectors(int pos1, int pos2, Board tempBoard)
         {
           humanPieces++;
         }
-        else if(vertices[points[k]] == AI_PLAYER_ID)
+        else if(tempBoard.boardArea[points[k]] == AI_PLAYER_ID)
         {
           aiPieces++;
         }
@@ -496,7 +496,7 @@ int Move::askPlacePosition(Board tempBoard)
   return r;
 }
 
-int Move::askRemovePosition(vector<int> protectedPoints)
+int Move::askRemovePosition(Board tempBoard)
 {
   // The AI's priorities are:
   // #1 Free a blocked mill
@@ -513,49 +513,49 @@ int Move::askRemovePosition(vector<int> protectedPoints)
   int points [3];
 
   // #1.2 Check if there is a mill that is only blocked a single piece
-  for(vector<int>::iterator it = impossible.begin(); it != impossible.end(); it++)
+  for(int i = 0; i < impossible.size(); i++)
   {
-    millNr = *it;
+    millNr = impossible[i] * 3;
 
-    points[0] = possibleMillPositions[millNr][0];
-    points[1] = possibleMillPositions[millNr][1];
-    points[2] = possibleMillPositions[millNr][2];
+    points[0] = tempBoard.mills[millNr];
+    points[1] = tempBoard.mills[millNr+1];
+    points[2] = tempBoard.mills[millNr+2];
 
     // Uses XOR: (a ^ b ^ c) && !(a && b && c)
-    if(((vertices[points[0]] == HUMAN_PLAYER_ID) ^ (vertices[points[1]] == HUMAN_PLAYER_ID) ^ (vertices[points[2]] == HUMAN_PLAYER_ID)) && !(vertices[points[0]] == HUMAN_PLAYER_ID && vertices[points[1]] == HUMAN_PLAYER_ID && vertices[points[2]] == HUMAN_PLAYER_ID))
+    if(((tempBoard.boardArea[points[0]] == HUMAN_PLAYER_ID) ^ (tempBoard.boardArea[points[1]] == HUMAN_PLAYER_ID) ^ (tempBoard.boardArea[points[2]] == HUMAN_PLAYER_ID)) && !(tempBoard.boardArea[points[0]] == HUMAN_PLAYER_ID && tempBoard.boardArea[points[1]] == HUMAN_PLAYER_ID && tempBoard.boardArea[points[2]] == HUMAN_PLAYER_ID))
     {
       for(int i = 0; i < 3; i++)
       {
         // and return the position of the blocking piece
-        if(vertices[points[i]] == HUMAN_PLAYER_ID) return points[i];
+        if(tempBoard.boardArea[points[i]] == HUMAN_PLAYER_ID) return points[i];
       }
     }
   }
-
+   int r;
   // #1.3 Else pick a random mill
+  if(impossible.size() > 0) {
+      r = rand() % impossible.size();
+      millNr = impossible.at(r) * 3;
 
-  int r = rand() % impossible.size();
-  millNr = impossible.at(r);
+      points[0] = tempBoard.mills[millNr];
+      points[1] = tempBoard.mills[millNr+1];
+      points[2] = tempBoard.mills[millNr+2];
 
-  points[0] = possibleMillPositions[millNr][0];
-  points[1] = possibleMillPositions[millNr][1];
-  points[2] = possibleMillPositions[millNr][2];
-
-  for(int i = 0; i < 3; i++)
-  {
-    // and return the position of the blocking piece
-    if(points[i] == HUMAN_PLAYER_ID) return points[i];
-  }
-
+      for(int i = 0; i < 3; i++)
+      {
+        // and return the position of the blocking piece
+        if(points[i] == HUMAN_PLAYER_ID) return points[i];
+      }
+}
   // #2 Remove a piece of the opposing player in a mill with one piece left
 
-  for(vector<int>::iterator it = onePieceLeftHuman.begin(); it != onePieceLeftHuman.end(); it++)
+  for(int i = 0; i < onePieceLeftHuman.size(); i++)
   {
-    millNr = *it;
+    millNr = onePieceLeftHuman[i] * 3;
 
-    points[0] = possibleMillPositions[millNr][0];
-    points[1] = possibleMillPositions[millNr][1];
-    points[2] = possibleMillPositions[millNr][2];
+    points[0] = tempBoard.mills[millNr];
+    points[1] = tempBoard.mills[millNr+1];
+    points[2] = tempBoard.mills[millNr+2];
 
     for(int i = 0; i < 3; i++)
     {
@@ -572,13 +572,13 @@ int Move::askRemovePosition(vector<int> protectedPoints)
   // and check if they are part of a possible mill; if yes, increase count involvedInPotentialMills
   for(int i = 0; i < 24; i++)
   {
-    if(vertices[i] == HUMAN_PLAYER_ID)
+    if(tempBoard.boardArea[i] == HUMAN_PLAYER_ID)
     {
-      for(int j = 0; j < 16; j++)
+      for(int j = 0; j <= 45; j+=3)
       {
-        if(possibleMillPositions[j][0] == i || possibleMillPositions[j][1] == i || possibleMillPositions[j][2] == i)
+        if(tempBoard.mills[j] == i || tempBoard.mills[j+1] == i || tempBoard.mills[j+2] == i)
         {
-          if(vertices[possibleMillPositions[j][0]] != 2 && vertices[possibleMillPositions[j][1]] != 2 && vertices[possibleMillPositions[j][2]] != 2)
+          if(tempBoard.boardArea[tempBoard.mills[j]] != 2 && tempBoard.boardArea[tempBoard.mills[j+1]] != 2 && tempBoard.boardArea[tempBoard.mills[j+2]] != 2)
           {
             // Piece i is involved in a possible Muehle
             involvedInPotentialMills[i]++;
@@ -604,7 +604,7 @@ int Move::askRemovePosition(vector<int> protectedPoints)
   do
   {
     r = rand() % 24;
-  } while(vertices[r] != 1 || std::find(protectedPoints.begin(), protectedPoints.end(), r) != protectedPoints.end());
+  } while(vertices[r] != 1 || tempBoard.isRemovable(r) == true);
 
   return r;
 }

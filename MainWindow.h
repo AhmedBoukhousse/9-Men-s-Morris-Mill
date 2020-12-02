@@ -37,11 +37,17 @@ private:
     void makeClickable(int pid);
     int millCheck(int newPiece);
     void isGameEnd();
-    int prevGameState;
-    Ui::MainWindow *ui;
-    bool toggle = true;
+
+    QIcon redIcon;
+    QIcon blackIcon;
+    QIcon blankIcon;
     QPushButton* PB[24];
     QSignalMapper *signalMapper;
+    Ui::MainWindow *ui;
+    winDialog *whowon;
+    bool toggle = true;
+
+    int prevGameState;
     int red = 9;
     int black = 9;
     int gameState = 1;
@@ -49,9 +55,6 @@ private:
     int endSlot= 4822;
     int whoMilled;
     int playMode;
-    QIcon redIcon;
-    QIcon blackIcon;
-    QIcon blankIcon;
-    winDialog *whowon;
+    bool AIMode = true;
 };
 #endif // MAINWINDOW_H
