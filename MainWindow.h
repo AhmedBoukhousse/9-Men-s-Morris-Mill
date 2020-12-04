@@ -18,7 +18,8 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr, bool AIMode = true);
+    bool AIMode;
     QPushButton* button;
     ~MainWindow();
     Board gameBoard;
@@ -37,6 +38,7 @@ private:
     void makeClickable(int pid);
     int millCheck(int newPiece);
     void isGameEnd();
+    pair<int,int> AISwap = make_pair(0,0);
 
     QIcon redIcon;
     QIcon blackIcon;
@@ -47,6 +49,7 @@ private:
     winDialog *whowon;
     bool toggle = true;
 
+    bool justRemoved = false;
     int prevGameState;
     int red = 9;
     int black = 9;
@@ -54,7 +57,5 @@ private:
     int startSlot = 4822;
     int endSlot= 4822;
     int whoMilled;
-    int playMode;
-    bool AIMode = true;
 };
 #endif // MAINWINDOW_H

@@ -11,27 +11,20 @@ selection::selection(QWidget *parent) :
     connect (ui->twoPlayer, SIGNAL(clicked()), this, SLOT(on_twoPlayer_clicked));
 }
 
-void selection::openGameBoard()
+void selection::on_onePlayer_clicked()
 {
     gameBoard = new MainWindow();
+    gameBoard->AIMode = true;
     gameBoard->show();
     this->close();
 }
 
-void selection::openNotReady()
-{
-    notreadydialog = new notready();
-    notreadydialog->show();
-}
-
-void selection::on_onePlayer_clicked()
-{
-    openGameBoard();
-}
-
 void selection::on_twoPlayer_clicked()
 {
-    openNotReady();
+    gameBoard = new MainWindow();
+    gameBoard->AIMode = false;
+    gameBoard->show();
+    this->close();
 }
 
 selection::~selection()

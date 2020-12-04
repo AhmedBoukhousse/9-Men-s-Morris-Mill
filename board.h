@@ -1,9 +1,12 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-#include "player.h"
 #include <map>
+#include <iostream>
 #include <algorithm>
+#include <vector>
+
+using namespace std;
 
 class Board
 {
@@ -11,8 +14,6 @@ public:
     Board();
     Board(int area[24]);
     int boardArea[24];
-    //Player player1(1);
-    //Player player2;
     bool flightMode = false;
     map<int, int> playerPiecesAmt;
     int checkMill(int pos);

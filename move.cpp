@@ -99,7 +99,7 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
       points[2] = tempBoard.mills[i+2];
 
       // If only pos2 was involved, remove
-      if((points[0] == pos2 || points[1] == pos2 || points[2] == pos2) && (vertices[points[0]] != HUMAN_PLAYER_ID && vertices[points[1]] != HUMAN_PLAYER_ID && vertices[points[2]] != HUMAN_PLAYER_ID)) {
+      if((points[0] == pos2 || points[1] == pos2 || points[2] == pos2) && (tempBoard.boardArea[points[0]] != HUMAN_PLAYER_ID && tempBoard.boardArea[points[1]] != HUMAN_PLAYER_ID && tempBoard.boardArea[points[2]] != HUMAN_PLAYER_ID)) {
         impossibleHuman.erase(impossibleHuman.begin()+i);
       } else {
         i++;
@@ -121,6 +121,7 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
       if(points[0] != pos2 && points[1] != pos2 && points[2] != pos2)
       {
         i++;
+        continue;
       }
       // Count pieces in the mill placed by the human and the AI player
 
@@ -142,19 +143,16 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
       {
         if(aiPieces == 1)
         {
-          impossible.erase(std::find(impossible.begin(), impossible.end(), millNr/3));
+          impossible.erase(find(impossible.begin(), impossible.end(), millNr/3));
           twoPiecesLeft.push_back(millNr/3);
         }
         else if(aiPieces == 2)
         {
-          impossible.erase(std::find(impossible.begin(), impossible.end(), millNr/3));
+          impossible.erase(find(impossible.begin(), impossible.end(), millNr/3));
           onePieceLeft.push_back(millNr/3);
         }
       }
-      else
-      {
-        i++;
-      }
+      i++;
     }
   }
 
@@ -169,32 +167,32 @@ void Move::updateHumanVectors(int pos1, int pos2, Board tempBoard)
       {
         if(tempBoard.boardArea[tempBoard.mills[j]] == AI_PLAYER_ID || tempBoard.boardArea[tempBoard.mills[j+1]] == AI_PLAYER_ID || tempBoard.boardArea[tempBoard.mills[j+2]] == AI_PLAYER_ID)
         {
-          if(std::find(impossibleHuman.begin(), impossibleHuman.end(), j/3) == impossibleHuman.end())
+          if(find(impossibleHuman.begin(), impossibleHuman.end(), j/3) == impossibleHuman.end())
           {
             impossibleHuman.push_back(j/3);
           }
 
           // Check if placing this piece has made a mill that was previously possible for the AI player impossible
-          if(std::find(onePieceLeft.begin(), onePieceLeft.end(), j/3) != onePieceLeft.end()) {
-            onePieceLeft.erase(std::find(onePieceLeft.begin(), onePieceLeft.end(), j/3));
+          if(find(onePieceLeft.begin(), onePieceLeft.end(), j/3) != onePieceLeft.end()) {
+            onePieceLeft.erase(find(onePieceLeft.begin(), onePieceLeft.end(), j/3));
             impossible.push_back(j/3);
-          } else if(std::find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3) != twoPiecesLeft.end()) {
-            twoPiecesLeft.erase(std::find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3));
+          } else if(find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3) != twoPiecesLeft.end()) {
+            twoPiecesLeft.erase(find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3));
             impossible.push_back(j/3);
           }
 
         }
         else
         {
-          if(std::find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3) != onePieceLeftHuman.end())
+          if(find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3) != onePieceLeftHuman.end())
           {
             // If j already is in onePieceLeft, it is already a completed mill, do nothing, just erase
-            onePieceLeftHuman.erase(std::find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3));
+            onePieceLeftHuman.erase(find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3));
           }
-          else if(std::find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3) != twoPiecesLeftHuman.end())
+          else if(find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3) != twoPiecesLeftHuman.end())
           {
             // If j already is in twoPiecesLeft, move to onePieceLeft
-            twoPiecesLeftHuman.erase(std::find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3));
+            twoPiecesLeftHuman.erase(find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3));
             onePieceLeftHuman.push_back(j/3);
           }
           else
@@ -287,7 +285,7 @@ void Move::updateAIVectors(int pos1, int pos2, Board tempBoard)
 
       // If only pos2 was involved, remove
       if((points[0] == pos2 || points[1] == pos2 || points[2] == pos2) && (tempBoard.boardArea[points[0]] != AI_PLAYER_ID && tempBoard.boardArea[points[1]] != AI_PLAYER_ID && tempBoard.boardArea[points[2]] != AI_PLAYER_ID)) {
-        impossibleHuman.erase(impossible.begin()+i);
+        impossible.erase(impossible.begin()+i);
       } else {
         i++;
       }
@@ -319,34 +317,30 @@ void Move::updateAIVectors(int pos1, int pos2, Board tempBoard)
 
       for(int k = 0; k < 3; k++)
       {
-        if(tempBoard.boardArea[points[k]] == HUMAN_PLAYER_ID)
+        if(tempBoard.boardArea[points[k]] == 1)
         {
           humanPieces++;
         }
-        else if(tempBoard.boardArea[points[k]] == AI_PLAYER_ID)
+        else if(tempBoard.boardArea[points[k]] == 2)
         {
           aiPieces++;
         }
       }
-
       // Check if the mill is now possible (no more AI player pieces in the mill after removing one)
       if(aiPieces == 1)
       {
         if(humanPieces == 1)
         {
-          impossibleHuman.erase(std::find(impossibleHuman.begin(), impossibleHuman.end(), millNr/3));
+          impossibleHuman.erase(find(impossibleHuman.begin(), impossibleHuman.end(), millNr/3));
           twoPiecesLeftHuman.push_back(millNr/3);
         }
         else if(humanPieces == 2)
         {
-          impossibleHuman.erase(std::find(impossibleHuman.begin(), impossibleHuman.end(), millNr/3));
+          impossibleHuman.erase(find(impossibleHuman.begin(), impossibleHuman.end(), millNr/3));
           onePieceLeftHuman.push_back(millNr/3);
         }
       }
-      else
-      {
-        i++;
-      }
+      i++;
     }
   }
 
@@ -361,32 +355,32 @@ void Move::updateAIVectors(int pos1, int pos2, Board tempBoard)
       {
         if(tempBoard.boardArea[tempBoard.mills[j]] == HUMAN_PLAYER_ID || tempBoard.boardArea[tempBoard.mills[j+1]] == HUMAN_PLAYER_ID || tempBoard.boardArea[tempBoard.mills[j+2]] == HUMAN_PLAYER_ID)
         {
-          if(std::find(impossible.begin(), impossible.end(), j/3) == impossible.end())
+          if(find(impossible.begin(), impossible.end(), j/3) == impossible.end())
           {
             impossible.push_back(j/3);
           }
 
           // Check if placing this piece has made a mill that was previously possible for the human player impossible
-          if(std::find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3) != onePieceLeftHuman.end()) {
-            onePieceLeftHuman.erase(std::find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3));
+          if(find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3) != onePieceLeftHuman.end()) {
+            onePieceLeftHuman.erase(find(onePieceLeftHuman.begin(), onePieceLeftHuman.end(), j/3));
             impossibleHuman.push_back(j/3);
-          } else if(std::find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3) != twoPiecesLeftHuman.end()) {
-            twoPiecesLeftHuman.erase(std::find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3));
+          } else if(find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3) != twoPiecesLeftHuman.end()) {
+            twoPiecesLeftHuman.erase(find(twoPiecesLeftHuman.begin(), twoPiecesLeftHuman.end(), j/3));
             impossibleHuman.push_back(j/3);
           }
 
         }
         else
         {
-          if(std::find(onePieceLeft.begin(), onePieceLeft.end(), j/3) != onePieceLeft.end())
+          if(find(onePieceLeft.begin(), onePieceLeft.end(), j/3) != onePieceLeft.end())
           {
             // If j already is in onePieceLeft, it is now a completed mill, do nothing, just erase
-            onePieceLeft.erase(std::find(onePieceLeft.begin(), onePieceLeft.end(), j/3));
+            onePieceLeft.erase(find(onePieceLeft.begin(), onePieceLeft.end(), j/3));
           }
-          else if(std::find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3) != twoPiecesLeft.end())
+          else if(find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3) != twoPiecesLeft.end())
           {
             // If j already is in twoPiecesLeft, move to onePieceLeft
-            twoPiecesLeft.erase(std::find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3));
+            twoPiecesLeft.erase(find(twoPiecesLeft.begin(), twoPiecesLeft.end(), j/3));
             onePieceLeft.push_back(j/3);
           }
           else
@@ -604,12 +598,12 @@ int Move::askRemovePosition(Board tempBoard)
   do
   {
     r = rand() % 24;
-  } while(vertices[r] != 1 || tempBoard.isRemovable(r) == true);
+  } while(tempBoard.boardArea[r] != 1 || tempBoard.isRemovable(r) == true);
 
   return r;
 }
 
-std::pair<int,int> Move::askMovePositions()
+pair<int,int> Move::askMovePositions(Board tempBoard)
 {
   int pos1, pos2;
 
@@ -628,20 +622,20 @@ std::pair<int,int> Move::askMovePositions()
 
   if(!onePieceLeft.empty())
   {
-    for(vector<int>::iterator it = onePieceLeft.begin(); it != onePieceLeft.end(); it++)
+    for(int i = 0; i < onePieceLeft.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = onePieceLeft[i] * 3;
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Check if the empty position can be reached
           // canBeReached returns position from where pos2 can be reached if it exists, otherwise it returns -1
-          pos1 = canBeReached(pos2);
-          if(pos1 != -1) return std::make_pair(pos1, pos2);
+          pos1 = canBeReached(pos2,tempBoard);
+          if(pos1 != -1) return make_pair(pos1, pos2);
         }
       }
     }
@@ -652,20 +646,20 @@ std::pair<int,int> Move::askMovePositions()
 
   if(!onePieceLeftHuman.empty())
   {
-    for(vector<int>::iterator it = onePieceLeftHuman.begin(); it != onePieceLeftHuman.end(); it++)
+    for(int i = 0; i < onePieceLeftHuman.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = onePieceLeftHuman[i];
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Check if the empty position can be reached
           // canBeReached returns position from where pos2 can be reached if it exists, otherwise it returns -1
-          pos1 = canBeReached(pos2);
-          if(pos1 != -1) return std::make_pair(pos1, pos2);
+          pos1 = canBeReached(pos2,tempBoard);
+          if(pos1 != -1) return make_pair(pos1, pos2);
         }
       }
     }
@@ -677,15 +671,15 @@ std::pair<int,int> Move::askMovePositions()
 
   int points [3];
 
-  for(int i = 0; i < 16; i++)
+  for(int i = 0; i <= 45; i+=3)
   {
     // Save the three points of the mill as point1-3
-    points[0] = possibleMillPositions[i][0];
-    points[1] = possibleMillPositions[i][1];
-    points[2] = possibleMillPositions[i][2];
+    points[0] = tempBoard.mills[i];
+    points[1] = tempBoard.mills[i+1];
+    points[2] = tempBoard.mills[i+2];
 
     // Check if the mill is formed
-    if(vertices[points[0]] == AI_PLAYER_ID && vertices[points[1]] == AI_PLAYER_ID && vertices[points[2]] == AI_PLAYER_ID)
+    if(tempBoard.boardArea[points[0]] == AI_PLAYER_ID && tempBoard.boardArea[points[1]] == AI_PLAYER_ID && tempBoard.boardArea[points[2]] == AI_PLAYER_ID)
     {
       // #3.2 If yes, move a piece at a random position of the mill
       int r = rand() % 3;
@@ -693,21 +687,21 @@ std::pair<int,int> Move::askMovePositions()
 
       // #3.3 Find a empty position that is connected to that position
 
-      for(int j = 0; j < 32; j++)
+      for(int j = 0; j <= 62; j+=2)
       {
-        if(edges[j][0] == pos1)
+        if(tempBoard.adjacent[j] == pos1)
         {
-          if(vertices[edges[j][1]] == 0)
+          if(tempBoard.boardArea[tempBoard.adjacent[j+1]] == 0)
           {
-            pos2 = edges[j][1];
-            return std::make_pair(pos1, pos2);
+            pos2 = tempBoard.adjacent[j+1];
+            return make_pair(pos1, pos2);
           }
         }
-        else if(edges[j][1] == pos1)
+        else if(tempBoard.adjacent[j+1] == pos1)
         {
-          if(vertices[edges[j][0]] == 0) {
-            pos2 = edges[j][0];
-            return std::make_pair(pos1, pos2);
+          if(tempBoard.boardArea[tempBoard.adjacent[j]] == 0) {
+            pos2 = tempBoard.adjacent[j];
+            return make_pair(pos1, pos2);
           }
         }
       }
@@ -719,44 +713,51 @@ std::pair<int,int> Move::askMovePositions()
   do
   {
     pos2 = rand() % 24;
-  } while(vertices[pos2] != 0 || canBeReached(pos2) == -1 || vertices[canBeReached(pos2)] == HUMAN_PLAYER_ID);
+  } while(tempBoard.boardArea[pos2] != 0 || canBeReached(pos2,tempBoard) == -1 || tempBoard.boardArea[canBeReached(pos2,tempBoard)] == HUMAN_PLAYER_ID);
 
-  pos1 = canBeReached(pos2);
+  pos1 = canBeReached(pos2,tempBoard);
 
-  return std::make_pair(pos1, pos2);
+  return make_pair(pos1, pos2);
 }
 
-int Move::canBeReached(int pos2)
+int Move::canBeReached(int pos2, Board moreBoard)
 {
   int pos1;
   // #1 Go through all edges
-  for(int i = 0; i < 32; i++)
+  for(int i = 0; i <= 62; i+=2)
   {
     // #2 Check if they involve positon pos2
-    if(edges[i][0] == pos2)
+    if(moreBoard.adjacent[i] == pos2)
     {
-      pos1 = edges[i][1];
+      pos1 = moreBoard.adjacent[i+1];
       // #3 Check if they also involve a position where the AI player has placed a piece
       // If yes, return that position
-      if(vertices[pos1] == AI_PLAYER_ID) return pos1;
+      if(moreBoard.boardArea[pos1] == AI_PLAYER_ID) return pos1;
     }
     // #2 Check if they involve positon pos2
-    else if(edges[i][1] == pos2)
+    else if(moreBoard.adjacent[i+1] == pos2)
     {
-      pos1 = edges[i][0];
+      pos1 = moreBoard.adjacent[i];
       // #3 Check if they also involve a position where the AI player has placed a piece
       // If yes, return that position
-      if(vertices[pos1] == AI_PLAYER_ID) return pos1;
+      if(moreBoard.boardArea[pos1] == AI_PLAYER_ID) return pos1;
     }
   }
 
   // #4 If none are, return -1
   return -1;
 }
-/*
-std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
+
+pair<int,int> Move::askFreeMovePositions(Board tempBoard)
 {
   int pos1, pos2;
+
+  vector<int> piecesOnBoard;
+  for(int i = 0; i < 24; i++)
+  {
+      if (tempBoard.boardArea[i] == 2)
+          piecesOnBoard.push_back(i);
+  }
 
   // The AI's priorities are:
   // #1 Form a mill when onePieceLeft
@@ -773,16 +774,16 @@ std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
 
   if(!onePieceLeft.empty())
   {
-    for(vector<int>::iterator it = onePieceLeft.begin(); it != onePieceLeft.end(); it++)
+    for(int i = 0; i < onePieceLeft.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = onePieceLeft[i];
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
         // pos2 is the empty position of the mill
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Return position of random AI player's piece
           int randomPosition = rand() % piecesOnBoard.size();
@@ -798,16 +799,16 @@ std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
 
   if(!onePieceLeftHuman.empty())
   {
-    for(vector<int>::iterator it = onePieceLeftHuman.begin(); it != onePieceLeftHuman.end(); it++)
+    for(int i = 0; i < onePieceLeftHuman.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = onePieceLeftHuman[i];
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
         // pos2 is the empty position of the mill
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Return position of random AI player's piece
           int randomPosition = rand() % piecesOnBoard.size();
@@ -823,16 +824,16 @@ std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
 
   if(!twoPiecesLeft.empty())
   {
-    for(vector<int>::iterator it = twoPiecesLeft.begin(); it != twoPiecesLeft.end(); it++)
+    for(int i = 0; i < twoPiecesLeft.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = twoPiecesLeft[i];
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
         // pos2 is the first empty position of the mill
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Return position of random AI player's piece
           int randomPosition = rand() % piecesOnBoard.size();
@@ -848,16 +849,16 @@ std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
 
   if(!twoPiecesLeftHuman.empty())
   {
-    for(vector<int>::iterator it = twoPiecesLeftHuman.begin(); it != twoPiecesLeftHuman.end(); it++)
+    for(int i = 0; i < twoPiecesLeftHuman.size(); i++)
     {
       // Get number of the mill
-      millNr = *it;
+      millNr = twoPiecesLeftHuman[i];
       // Go through all three piece positions of the mill to figure out which one is empty
-      for(int i = 0; i < 3; i++)
+      for(int j = 0; j < 3; j++)
       {
         // pos2 is the first empty position of the mill
-        pos2 = possibleMillPositions[millNr][i];
-        if(vertices[pos2] == 0)
+        pos2 = tempBoard.mills[millNr+j];
+        if(tempBoard.boardArea[pos2] == 0)
         {
           // Return position of random AI player's piece
           int randomPosition = rand() % piecesOnBoard.size();
@@ -876,8 +877,7 @@ std::pair<int,int> Move::askFreeMovePositions(int piecesOnBoard[24])
   do
   {
     pos2 = rand() % 24;
-  } while(vertices[pos2] != 0);
+  } while(tempBoard.boardArea[pos2] != 0);
 
   return std::make_pair(pos1, pos2);
 }
-*/

@@ -55,8 +55,8 @@ class Move
      *  Returns:    A pair of two integers: The positions from where and to where to AI will move a piece next
      */
 
-    std::pair<int,int> askMovePositions();
-    std::pair<int,int> askFreeMovePositions();
+    pair<int,int> askMovePositions(Board tempBoard);
+    pair<int,int> askFreeMovePositions(Board tempBoard);
 
     /*!
      *  Determines whether the position pos2 can be reached by the AI player, and from where it can be reached
@@ -67,7 +67,7 @@ class Move
      *  Returns:    The position from where the position pos2 can be reached
      */
 
-    int canBeReached(int pos2);
+    int canBeReached(int pos2, Board moreBoard);
 
     /*!
      *  Resets the player
@@ -77,10 +77,6 @@ class Move
     void reset();
 
     private:
-      int vertices[24];
-      std::array<std::array<int, 3>, 16> possibleMillPositions;
-      std::array<std::array<int, 2>, 32> edges; //adjacencies
-
       // These vectors contain the nrs of mill positions which have one piece/two pieces left until completed or are impossible
       // The AI uses these vectors to make decisions
       vector<int> onePieceLeft, twoPiecesLeft, impossible;
