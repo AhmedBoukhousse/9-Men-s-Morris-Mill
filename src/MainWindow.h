@@ -18,7 +18,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr, bool AIMode = true);
+    MainWindow(QWidget *parent = nullptr);
     bool AIMode;
     QPushButton* button;
     ~MainWindow();
@@ -49,7 +49,6 @@ private:
     winDialog *whowon;
     bool toggle = true;
 
-    bool justRemoved = false;
     int prevGameState;
     int red = 9;
     int black = 9;

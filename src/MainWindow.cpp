@@ -2,7 +2,7 @@
 #include "ui_MainWindow.h"
 #include "board.h"
 
-MainWindow::MainWindow(QWidget *parent, bool AIMode):
+MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -240,16 +240,26 @@ void MainWindow::handleButton2(int button)
             if (prevGameState == 1)
             {
                 ui->textEdit->setText(tr("Time to add pieces"));
+
+                //AI Addition
+                if(black > 0)
+                {
+                int AIPos = AI.askPlacePosition(gameBoard);
+                setBlack(AIPos);
+                AI.updateAIVectors(AIPos, -1, gameBoard);
+                updateBoard();
+                whoMilled = millCheck(AIPos);
+                black--;
+                }
                 makeClickable(3);
             }
             return;
         }
         if (gameState == 1) //adding piece state
         {
-            if (toggle == true && red > 0)
+            if (red > 0)
             {
                 //Player Addition
-                setTurnButton('b');
                 setRed(button);
                 updateBoard();
                 whoMilled = millCheck(button);
@@ -258,6 +268,8 @@ void MainWindow::handleButton2(int button)
                 red--;
 
                 //AI Addition
+                if(black > 0)
+                {
                 AI.updateHumanVectors(button, -1, gameBoard);
                 int AIPos = AI.askPlacePosition(gameBoard);
                 setBlack(AIPos);
@@ -265,6 +277,7 @@ void MainWindow::handleButton2(int button)
                 updateBoard();
                 whoMilled = millCheck(AIPos);
                 black--;
+                }
             }
             if (red == 0 && black == 0)
             {
