@@ -115,6 +115,8 @@ bool Board::checkAdjacent(int origin, int dest)
 
 bool Board::hasLegalMoves(int pid)
 {
+    if(playerPiecesAmt[pid] == 3)
+        return true;
     for(int i = 0; i < 24; i++)
     {
         if (boardArea[i] == pid)
