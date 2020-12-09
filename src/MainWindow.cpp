@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include "board.h"
 
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
@@ -29,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent):
     signalMapper = new QSignalMapper(this);
     connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(handleButton2(int)));
 
-    for (int i =0; i<24; i++)
+    for (int i =0; i<BOARD_SIZE; i++)
     {
         connect(PB[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
         signalMapper->setMapping(PB[i], i);
@@ -46,7 +45,7 @@ void MainWindow::setBlack(int button)
     PB[button]->setIcon(blackIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(false);
-    gameBoard.addPiece(2, button);
+    gameBoard.addPiece(BLACK_ID, button);
 }
 
 void MainWindow::setRed(int button)
@@ -54,7 +53,7 @@ void MainWindow::setRed(int button)
     PB[button]->setIcon(redIcon);
     PB[button]->setIconSize(QSize(65, 65));
     PB[button]->setEnabled(false);
-    gameBoard.addPiece(1, button);
+    gameBoard.addPiece(RED_ID, button);
 }
 
 void MainWindow::setEmpty(int button)
@@ -81,13 +80,13 @@ void MainWindow::setTurnButton(char color)
 
 void MainWindow::updateBoard()
 {
-    for (int i = 0; i < 24; i++)
+    for (int i = 0; i < BOARD_SIZE; i++)
     {
         if (gameBoard.boardArea[i] == 0)
             setEmpty(i);
-        else if (gameBoard.boardArea[i] == 1)
+        else if (gameBoard.boardArea[i] == RED_ID)
             setRed(i);
-        else if (gameBoard.boardArea[i] == 2)
+        else if (gameBoard.boardArea[i] == BLACK_ID)
             setBlack(i);
     }
 }
@@ -102,16 +101,16 @@ int MainWindow::millCheck(int newPiece)
     int playerMill = gameBoard.checkMill(newPiece);
     if (playerMill == 1)
     {
-        ui->textEdit->setText(tr("PLAYER 1 HAS A MILL"));
+        ui->textEdit->setText(tr("Red HAS A MILL"));
         prevGameState = gameState;
         if (AIMode == false)
             setTurnButton('r');
-        makeClickable(2);
+        makeClickable(BLACK_ID);
         gameState = 3;
     }
     if (playerMill == 2 && AIMode == true)
     {
-        int remover = AI.askRemovePosition(gameBoard);
+        int remover = AI.AIRemovePiece(gameBoard);
         setEmpty(remover);
         AI.updateHumanVectors(-1, remover, gameBoard);
         updateBoard();
@@ -119,10 +118,10 @@ int MainWindow::millCheck(int newPiece)
     }
     if (playerMill == 2 && AIMode == false)
     {
-        ui->textEdit->setText(tr("PLAYER 2 HAS A MILL"));
+        ui->textEdit->setText(tr("Black HAS A MILL"));
         prevGameState = gameState;
         setTurnButton('b');
-        makeClickable(1);
+        makeClickable(RED_ID);
         gameState = 3;
     }
     return playerMill;
@@ -134,14 +133,14 @@ void MainWindow::isGameEnd()
     switch (scenario)
     {
     case 1:
-        ui->textEdit->setText(tr("Player 1 locked"));
+        ui->textEdit->setText(tr("Red locked"));
         whowon->whoWonText(1);
         whowon->show();
         this->close();
         break;
 
     case 2:
-        ui->textEdit->setText(tr("Player 2 locked"));
+        ui->textEdit->setText(tr("Black locked"));
         whowon->whoWonText(2);
         whowon->show();
         this->close();
@@ -166,41 +165,41 @@ void MainWindow::isGameEnd()
 
 void MainWindow::makeClickable(int pid)
 {
-    for (int i = 0; i < 24; i++)
+    for (int i = 0; i < BOARD_SIZE; i++)
     {
-        if (pid == 1)
+        if (pid == RED_ID)
         {
-            if (gameBoard.boardArea[i] == 0)
+            if (gameBoard.boardArea[i] == EMPTY_ID)
                 PB[i]->setEnabled(false);
-            else if (gameBoard.boardArea[i] == 1)
+            else if (gameBoard.boardArea[i] == RED_ID)
                 PB[i]->setEnabled(true);
-            else if (gameBoard.boardArea[i] == 2)
+            else if (gameBoard.boardArea[i] == BLACK_ID)
                 PB[i]->setEnabled(false);
         }
-        if (pid == 2)
+        if (pid == BLACK_ID)
         {
-            if (gameBoard.boardArea[i] == 0)
+            if (gameBoard.boardArea[i] == EMPTY_ID)
                 PB[i]->setEnabled(false);
-            else if (gameBoard.boardArea[i] == 1)
+            else if (gameBoard.boardArea[i] == RED_ID)
                 PB[i]->setEnabled(false);
-            else if (gameBoard.boardArea[i] == 2)
+            else if (gameBoard.boardArea[i] == BLACK_ID)
                 PB[i]->setEnabled(true);
         }
-        if (pid == 3)
+        if (pid == EMPTY_ID)
         {
-            if (gameBoard.boardArea[i] == 0)
+            if (gameBoard.boardArea[i] == EMPTY_ID)
                 PB[i]->setEnabled(true);
-            else if (gameBoard.boardArea[i] == 1)
+            else if (gameBoard.boardArea[i] == RED_ID)
                 PB[i]->setEnabled(false);
-            else if (gameBoard.boardArea[i] == 2)
+            else if (gameBoard.boardArea[i] == BLACK_ID)
                 PB[i]->setEnabled(false);
         }
     }
 }
 
-void MainWindow::movePiece(int player, int start, int dest)
+void MainWindow::movePieceGUI(int player, int start, int dest)
 {
-    gameBoard.swapPiece(player,start,dest);
+    gameBoard.movePiece(player,start,dest);
     updateBoard();
 }
 
@@ -212,7 +211,7 @@ void MainWindow::handleButton2(int button)
         {
             setEmpty(button);
             AI.updateAIVectors(-1, button, gameBoard);
-            if (gameBoard.boardArea[button] != 0)
+            if (gameBoard.boardArea[button] != EMPTY_ID)
             {
                 ui->textEdit->setText(tr("that piece is in a mill, try again!"));
                 return;
@@ -226,16 +225,16 @@ void MainWindow::handleButton2(int button)
                 ui->textEdit->setText(tr("Time to move pieces"));
 
                 //AI Movement
-                if (gameBoard.playerPiecesAmt[2] == 3)
-                    AISwap = AI.askFreeMovePositions(gameBoard);
+                if (gameBoard.playerPiecesAmt[BLACK_ID] == 3)
+                    AISwap = AI.AIFlyPiece(gameBoard);
                 else
-                    AISwap = AI.askMovePositions(gameBoard);
-                movePiece(2, AISwap.first, AISwap.second);
+                    AISwap = AI.AIMovePiece(gameBoard);
+                movePieceGUI(BLACK_ID, AISwap.first, AISwap.second);
                 updateBoard();
                 AI.updateAIVectors(AISwap.first, AISwap.second, gameBoard);
                 whoMilled = millCheck(AISwap.second);
 
-                makeClickable(1);
+                makeClickable(RED_ID);
             }
             if (prevGameState == 1)
             {
@@ -244,14 +243,14 @@ void MainWindow::handleButton2(int button)
                 //AI Addition
                 if(black > 0)
                 {
-                int AIPos = AI.askPlacePosition(gameBoard);
+                int AIPos = AI.AIPlacePiece(gameBoard);
                 setBlack(AIPos);
                 AI.updateAIVectors(AIPos, -1, gameBoard);
                 updateBoard();
                 whoMilled = millCheck(AIPos);
                 black--;
                 }
-                makeClickable(3);
+                makeClickable(EMPTY_ID);
             }
             return;
         }
@@ -263,7 +262,7 @@ void MainWindow::handleButton2(int button)
                 setRed(button);
                 updateBoard();
                 whoMilled = millCheck(button);
-                if (whoMilled == 1)
+                if (whoMilled == RED_ID)
                     return;
                 red--;
 
@@ -271,7 +270,7 @@ void MainWindow::handleButton2(int button)
                 if(black > 0)
                 {
                 AI.updateHumanVectors(button, -1, gameBoard);
-                int AIPos = AI.askPlacePosition(gameBoard);
+                int AIPos = AI.AIPlacePiece(gameBoard);
                 setBlack(AIPos);
                 AI.updateAIVectors(AIPos, -1, gameBoard);
                 updateBoard();
@@ -284,7 +283,7 @@ void MainWindow::handleButton2(int button)
                 gameState = 2;
                 whoMilled = millCheck(button);
                 isGameEnd();
-                makeClickable(1);
+                makeClickable(RED_ID);
                 ui->textEdit->setText(tr("Time to move pieces"));
                 return;
             }
@@ -297,27 +296,27 @@ void MainWindow::handleButton2(int button)
                 if (startSlot == 4822)
                 {
                     startSlot = button;
-                    makeClickable(3);
+                    makeClickable(EMPTY_ID);
                     return;
                 }
                 else
                 {
                     endSlot = button;
-                    movePiece(1, startSlot, endSlot);
+                    movePieceGUI(RED_ID, startSlot, endSlot);
                     AI.updateHumanVectors(startSlot, endSlot, gameBoard);
-                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[1] == 3)
+                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[RED_ID] == 3)
                     {
                         //Player Movement
                         whoMilled = millCheck(endSlot);
-                        if(whoMilled == 1)
+                        if(whoMilled == RED_ID)
                             return;
 
                         //AI Movement
-                        if (gameBoard.playerPiecesAmt[2] == 3)
-                            AISwap = AI.askFreeMovePositions(gameBoard);
+                        if (gameBoard.playerPiecesAmt[BLACK_ID] == 3)
+                            AISwap = AI.AIFlyPiece(gameBoard);
                         else
-                            AISwap = AI.askMovePositions(gameBoard);
-                        movePiece(2, AISwap.first, AISwap.second);
+                            AISwap = AI.AIMovePiece(gameBoard);
+                        movePieceGUI(BLACK_ID, AISwap.first, AISwap.second);
                         updateBoard();
                         AI.updateAIVectors(AISwap.first, AISwap.second, gameBoard);
                         whoMilled = millCheck(AISwap.second);
@@ -326,7 +325,7 @@ void MainWindow::handleButton2(int button)
                         startSlot = 4822;
                         endSlot = 4822;
                         isGameEnd();
-                        makeClickable(1);
+                        makeClickable(RED_ID);
                     }
                     else
                     {
@@ -334,7 +333,7 @@ void MainWindow::handleButton2(int button)
                         ui->textEdit->setText(tr("Illegal move, reselect a piece"));
                         startSlot = 4822;
                         endSlot = 4822;
-                        makeClickable(1);
+                        makeClickable(RED_ID);
                     }
                     return;
                 }
@@ -352,16 +351,16 @@ void MainWindow::handleButton2(int button)
                 ui->textEdit->setText(tr("that piece is in a mill, try again!"));
                 return;
             }
-            if (whoMilled == 1)
+            if (whoMilled == RED_ID)
             {
                 toggle = false;
-                makeClickable(2);
+                makeClickable(BLACK_ID);
                 setTurnButton('b');
             }
-            else if (whoMilled == 2)
+            else if (whoMilled == BLACK_ID)
             {
                 toggle = true;
-                makeClickable(1);
+                makeClickable(RED_ID);
                 setTurnButton('r');
             }
             startSlot = 4822;
@@ -375,7 +374,7 @@ void MainWindow::handleButton2(int button)
             if (prevGameState == 1)
             {
                 ui->textEdit->setText(tr("Time to add pieces"));
-                makeClickable(3);
+                makeClickable(EMPTY_ID);
             }
             return;
         }
@@ -404,7 +403,7 @@ void MainWindow::handleButton2(int button)
                 gameState = 2;
                 whoMilled = millCheck(button);
                 isGameEnd();
-                makeClickable(1);
+                makeClickable(RED_ID);
                 ui->textEdit->setText(tr("Time to move pieces"));
                 return;
             }
@@ -416,14 +415,14 @@ void MainWindow::handleButton2(int button)
                 if (startSlot == 4822)
                 {
                     startSlot = button;
-                    makeClickable(3);
+                    makeClickable(EMPTY_ID);
                     return;
                 }
                 else
                 {
                     endSlot = button;
-                    movePiece(1, startSlot, endSlot);
-                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[1] == 3)
+                    movePieceGUI(RED_ID, startSlot, endSlot);
+                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[RED_ID] == 3)
                     {
                         setTurnButton('b');
                         whoMilled = millCheck(endSlot);
@@ -431,14 +430,14 @@ void MainWindow::handleButton2(int button)
                         endSlot = 4822;
                         toggle = false;
                         isGameEnd();
-                        makeClickable(2);
+                        makeClickable(BLACK_ID);
                     }
                     else
                     {
                         ui->textEdit->setText(tr("Illegal move, reselect a piece"));
                         startSlot = 4822;
                         endSlot = 4822;
-                        makeClickable(1);
+                        makeClickable(RED_ID);
                     }
                     return;
                 }
@@ -448,14 +447,14 @@ void MainWindow::handleButton2(int button)
                 if (startSlot == 4822)
                 {
                     startSlot = button;
-                    makeClickable(3);
+                    makeClickable(EMPTY_ID);
                     return;
                 }
                 else
                 {
                     endSlot = button;
-                    movePiece(2, startSlot, endSlot);
-                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[2] == 3)
+                    movePieceGUI(BLACK_ID, startSlot, endSlot);
+                    if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[BLACK_ID] == 3)
                     {
                         setTurnButton('r');
                         whoMilled = millCheck(endSlot);
@@ -463,14 +462,14 @@ void MainWindow::handleButton2(int button)
                         endSlot = 4822;
                         isGameEnd();
                         toggle = true;
-                        makeClickable(1);
+                        makeClickable(RED_ID);
                     }
                     else
                     {
                         ui->textEdit->setText(tr("Illegal move, reselect a piece"));
                         startSlot = 4822;
                         endSlot = 4822;
-                        makeClickable(2);
+                        makeClickable(BLACK_ID);
                     }
                     return;
                 }

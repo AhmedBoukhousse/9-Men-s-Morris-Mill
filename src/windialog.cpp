@@ -17,16 +17,16 @@ void winDialog::whoWonText(int scenario)
 {
     switch (scenario) {
         case 1:
-        ui->winText->setText("Player 1 has no legal moves left. Player 2 Wins!");
+        ui->winText->setText("Red has no legal moves left. Black Wins!");
         break;
         case 2:
-        ui->winText->setText("Player 2 has no legal moves left. Player 1 Wins!");
+        ui->winText->setText("Black has no legal moves left. Red Wins!");
         break;
         case 3:
-        ui->winText->setText("Player 1 has only 2 pieces left. Player 2 Wins!");
+        ui->winText->setText("Red has only 2 pieces left. Black Wins!");
         break;
         case 4:
-        ui->winText->setText("Player 2 has only 2 pieces left. Player 1 Wins!");
+        ui->winText->setText("Black has only 2 pieces left. Red Wins!");
         break;
     }
 

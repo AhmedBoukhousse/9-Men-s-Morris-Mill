@@ -10,16 +10,16 @@ CONFIG += c++11
 
 SOURCES += \
     board.cpp \
+    computerPlayer.cpp \
     main.cpp \
     MainWindow.cpp \
-    move.cpp \
     selection.cpp \
     windialog.cpp
 
 HEADERS += \
     MainWindow.h \
     board.h \
-    move.h \
+    computerPlayer.h \
     selection.h \
     windialog.h
 
