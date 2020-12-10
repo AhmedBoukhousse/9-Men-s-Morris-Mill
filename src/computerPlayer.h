@@ -29,7 +29,7 @@ class computerPlayer
     pair<int,int> AIMovePiece(Board tempBoard);
     pair<int,int> AIFlyPiece(Board tempBoard);
 
-    //Adjacency Function
+    //Adjacency Function (Checks if and what AI piece on the board can go to the passed location)
     int canBeReached(int pos2, Board moreBoard);
 
   private:

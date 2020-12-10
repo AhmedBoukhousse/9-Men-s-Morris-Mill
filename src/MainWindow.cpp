@@ -231,7 +231,7 @@ void MainWindow::handleButton2(int button)
                     AISwap = AI.AIMovePiece(gameBoard);
                 movePieceGUI(BLACK_ID, AISwap.first, AISwap.second);
                 updateBoard();
-                AI.updateAIVectors(AISwap.first, AISwap.second, gameBoard);
+                AI.updateAIVectors(AISwap.second, AISwap.first, gameBoard);
                 whoMilled = millCheck(AISwap.second);
 
                 makeClickable(RED_ID);
@@ -303,7 +303,7 @@ void MainWindow::handleButton2(int button)
                 {
                     endSlot = button;
                     movePieceGUI(RED_ID, startSlot, endSlot);
-                    AI.updateHumanVectors(startSlot, endSlot, gameBoard);
+                    AI.updateHumanVectors(endSlot, startSlot, gameBoard);
                     if(gameBoard.checkAdjacent(startSlot,endSlot) || gameBoard.playerPiecesAmt[RED_ID] == 3)
                     {
                         //Player Movement
@@ -318,7 +318,7 @@ void MainWindow::handleButton2(int button)
                             AISwap = AI.AIMovePiece(gameBoard);
                         movePieceGUI(BLACK_ID, AISwap.first, AISwap.second);
                         updateBoard();
-                        AI.updateAIVectors(AISwap.first, AISwap.second, gameBoard);
+                        AI.updateAIVectors(AISwap.second, AISwap.first, gameBoard);
                         whoMilled = millCheck(AISwap.second);
 
                         //Turn end

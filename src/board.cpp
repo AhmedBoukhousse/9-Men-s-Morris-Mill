@@ -22,6 +22,10 @@ int Board::checkMill(int pos)
     int pos1;
     int pos2;
     int pos3;
+
+    if(boardArea[pos] == 0)
+        return 0;
+
     for(int i = 0; i <= 45; i+=3) //for every mill listed in the mill array
     {
         pos1 = mills[i];
@@ -35,6 +39,8 @@ int Board::checkMill(int pos)
                     return playerMilled;
                   }
         }
+        if ((i+2) == 48)
+            return 0;
     }
     return 0;
 }
