@@ -1,6 +1,7 @@
 #include "tst_testpieceplacement.h"
 #include "tst_testPieceMovement.h"
 #include "tst_testPieceRemoval.h"
+#include "tst_testaifunctions.h"
 #include "tst_testGameOver.h"
 
 #include <gtest/gtest.h>

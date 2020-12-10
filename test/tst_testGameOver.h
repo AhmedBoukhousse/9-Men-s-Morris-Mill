@@ -13,8 +13,11 @@ TEST(gameOverTest, testEndPlayer1Blocked)
     testBoard.addPiece(1,0);
     testBoard.addPiece(1,1);
     testBoard.addPiece(1,2);
+    testBoard.addPiece(1,3);
     testBoard.addPiece(2,4);
     testBoard.addPiece(2,9);
+    testBoard.addPiece(2,10);
+    testBoard.addPiece(2,7);
     testBoard.addPiece(2,14);
     int scenario = testBoard.GameOver();
     ASSERT_THAT(scenario, Eq(1));
@@ -26,8 +29,11 @@ TEST(gameOverTest, testEndPlayer2Blocked)
     testBoard.addPiece(2,0);
     testBoard.addPiece(2,1);
     testBoard.addPiece(2,2);
+    testBoard.addPiece(2,3);
     testBoard.addPiece(1,4);
     testBoard.addPiece(1,9);
+    testBoard.addPiece(1,10);
+    testBoard.addPiece(1,7);
     testBoard.addPiece(1,14);
     int scenario = testBoard.GameOver();
     ASSERT_THAT(scenario, Eq(2));

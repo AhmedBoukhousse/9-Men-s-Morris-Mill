@@ -10,9 +10,12 @@ HEADERS += \
         tst_testGameOver.h \
         tst_testPieceMovement.h \
         tst_testPieceRemoval.h \
+        tst_testaifunctions.h \
         tst_testpieceplacement.h \
         ../src/board.h \
+        ../src/computerPlayer.h
 
 SOURCES += \
         main.cpp \
         ../src/board.cpp \
+        ../src/computerPlayer.cpp
